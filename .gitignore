@@ -1,0 +1,12 @@
+# Wire
+site/assets/*
+site/modules/*
+vendor/*
+wire/*
+
+composer.lock
+
+# IDEs
+.idea
+
+.gitattributes
