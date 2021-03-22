@@ -84,7 +84,7 @@ $config->isDevEnvironment = isDevEnvironment();
  * Do not change this value, or user passwords will no longer work.
  * 
  */
-$config->userAuthSalt = '6b4956362a9eca16de8febb125278f728dace4c6'; 
+$config->userAuthSalt = $_ENV['USER_AUTH_SALT'];
 
 /**
  * Installer: Table Salt (General Purpose) 
@@ -94,7 +94,7 @@ $config->userAuthSalt = '6b4956362a9eca16de8febb125278f728dace4c6';
  * this value or it may break internal system comparisons that use it. 
  * 
  */
-$config->tableSalt = 'a78276e18f4af0a20b61423a8977fdb4a31e9832'; 
+$config->tableSalt = $_ENV['TABLE_SALT'];
 
 /**
  * Installer: File Permission Configuration
