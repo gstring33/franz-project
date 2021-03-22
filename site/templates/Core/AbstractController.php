@@ -4,7 +4,6 @@ namespace App\Core;
 
 use ProcessWire\ProcessWire;
 use \Twig\Environment;
-use \Twig\Loader\FilesystemLoader;
 
 class AbstractController
 {
@@ -20,8 +19,7 @@ class AbstractController
     public function __construct()
     {
         $this->wire = ProcessWire::getCurrentInstance();
-        $loader = new FilesystemLoader($this->wire->config('twigTemplates'));
-        $this->twig = new Environment($loader, ['debug' => $this->wire->config('twigDebug')]);
+        $this->twig = new TwigRenderer();
     }
 
     /**
