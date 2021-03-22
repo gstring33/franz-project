@@ -30,6 +30,9 @@ if(!defined("PROCESSWIRE")) die();
 
 /** @var Config $config */
 
+/**
+ * Load dotenv
+ */
 $dotenv = new Dotenv();
 $dotenv->load($config->paths->root . '.env');
 
@@ -62,7 +65,15 @@ $config->dbPass = $_ENV['DB_PASSWORD'];
 $config->dbPort = $_ENV['DB_PORT'];
 $config->dbEngine = $_ENV['DB_ENGINE'];
 
+/**
+ * Environement
+ */
 $config->env = $_ENV['APP_ENV'];
+
+function isDevEnvironment() {
+    return $_ENV['APP_ENV'] === 'dev';
+}
+$config->isDevEnvironment = isDevEnvironment();
 
 /**
  * Installer: User Authentication Salt 
@@ -136,9 +147,12 @@ $config->paths->vendor = $config->paths->root . 'vendor/';
 $config->urls->set('css', 'site/templates/public/css/');
 $config->urls->set('js', 'site/templates/public/js/');
 
+/**
+ * Twig config
+ */
 $config->twigTemplates = $config->paths->templates . 'views';
 $config->twigDebug = $_ENV['APP_ENV'] === 'dev' ? true : false;
 
 
-setlocale(LC_ALL, 'en_US.UTF-8');
+setlocale(LC_ALL, 'de_DE.UTF-8');
 

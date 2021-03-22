@@ -43,10 +43,12 @@ class TwigRenderer
     {
         $functions = [
             new TwigFunction('scripts', function($filename) {
-                return $this->wire->config->urls->get('js') . $filename . '.js?c=' . time();
+                $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
+                return $this->wire->config->urls->get('js') . $file . '.js?c=' . time();
             }),
             new TwigFunction('styles', function($filename) {
-                return $this->wire->config->urls->get('css') . $filename . '.css?c=' . time();
+                $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
+                return $this->wire->config->urls->get('css') . $file . '.css?c=' . time();
             }),
         ];
 
