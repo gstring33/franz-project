@@ -1,5 +1,7 @@
 <?php namespace ProcessWire;
 
+use Symfony\Component\Dotenv\Dotenv;
+
 /**
  * ProcessWire Configuration File
  *
@@ -28,6 +30,9 @@ if(!defined("PROCESSWIRE")) die();
 
 /** @var Config $config */
 
+$dotenv = new Dotenv();
+$dotenv->load($config->paths->root . '.env');
+
 /**
  * Allow core API variables to also be accessed as functions?
  *
@@ -50,12 +55,14 @@ $config->useFunctionsAPI = true;
  * Installer: Database Configuration
  * 
  */
-$config->dbHost = 'localhost';
-$config->dbName = 'franz_atelier';
-$config->dbUser = 'processwire';
-$config->dbPass = 'processwire';
-$config->dbPort = '3306';
-$config->dbEngine = 'InnoDB';
+$config->dbHost = $_ENV['DB_HOST'];
+$config->dbName = $_ENV['DB_NAME'];
+$config->dbUser = $_ENV['DB_USER'];
+$config->dbPass = $_ENV['DB_PASSWORD'];
+$config->dbPort = $_ENV['DB_PORT'];
+$config->dbEngine = $_ENV['DB_ENGINE'];
+
+$config->env = $_ENV['APP_ENV'];
 
 /**
  * Installer: User Authentication Salt 
@@ -129,8 +136,8 @@ $config->paths->vendor = $config->paths->root . 'vendor/';
 $config->urls->set('css', 'site/templates/public/css/');
 $config->urls->set('js', 'site/templates/public/js/');
 
-$config->twigDebug = true;
 $config->twigTemplates = $config->paths->templates . 'views';
+$config->twigDebug = $_ENV['APP_ENV'] === 'dev' ? true : false;
 
 
 setlocale(LC_ALL, 'en_US.UTF-8');

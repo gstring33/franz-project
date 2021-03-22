@@ -20,5 +20,8 @@
   },
   "autoload": {
     "files": [ "wire/core/ProcessWire.php" ]
+  },
+  "require-dev": {
+    "symfony/dotenv": "^5.2"
   }
 }
