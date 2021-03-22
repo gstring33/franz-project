@@ -1,0 +1,22 @@
+{
+  "name": "franz-site",
+  "version": "1.0.0",
+  "description": "This document is in Markdown. An HTML formatted version of this document  can be read at: https://github.com/processwire/processwire/blob/master/README.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gstring33/franz-project.git"
+  },
+  "author": "Martin Dhenu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gstring33/franz-project/issues"
+  },
+  "homepage": "https://github.com/gstring33/franz-project#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}

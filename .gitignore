@@ -2,9 +2,11 @@
 site/assets/*
 site/modules/*
 vendor/*
+node_modules/*
 wire/*
 
 composer.lock
+package-lock.json
 
 # IDEs
 .idea
