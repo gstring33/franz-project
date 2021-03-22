@@ -1,4 +1,4 @@
-const { src, dest, parallel, series, task } = require('gulp');
+const { src, dest, parallel, series, task, watch } = require('gulp');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
@@ -19,25 +19,29 @@ task('clean:public', function() {
     ])
 })
 
-
 // ----- BUILD FOR DEV ----- //
 
-task('build-js', function(cb) {
+task('build:js', function(cb) {
     return src(paths.src + 'js/*.js')
         .pipe(babel())
         .pipe(dest(paths.dest + 'js/'))
 })
 
-task('build-css', function(cb) {
+task('build:css', function(cb) {
     return src(paths.src + 'css/*.css')
         .pipe(dest(paths.dest + 'css/'))
 })
 
-exports.default = series('clean:public', parallel('build-js', 'build-css'))
+task('watch', function () {
+    watch(paths.src + 'js/*.js', series('build:js'))
+    watch(paths.src + 'css/*.css', series('build:css'))
+})
+
+exports.default = series('clean:public', parallel('build:js', 'build:css'))
 
 // ----- BUILD FOR PROD ----- //
 
-task('build-js-prod', function(cb) {
+task('build:js:prod', function(cb) {
     return src(paths.src + 'js/*.js')
         .pipe(babel())
         .pipe(uglify())
@@ -45,7 +49,7 @@ task('build-js-prod', function(cb) {
         .pipe(dest(paths.dest + 'js/'));
 })
 
-task('build-css-prod', function(cb) {
+task('build:css:prod', function(cb) {
     const plugins = [
         autoprefixer(),
         cssnano()
@@ -57,4 +61,4 @@ task('build-css-prod', function(cb) {
         .pipe(dest(paths.dest + 'css/'));
 })
 
-exports.prod = series(parallel('clean:public', 'build-js-prod', 'build-css-prod'));
+exports.prod = series(parallel('clean:public', 'build:js:prod', 'build:css:prod'));
