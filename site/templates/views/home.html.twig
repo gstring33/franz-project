@@ -1,7 +1,14 @@
-<h1>Home</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link href="{{ styles('main') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>Home</h1>
 
-{{ scripts('Hello Scripts') }}
+        <p>{{ message }} </p>
 
-<p>{{ message }} </p>
-
-{{ styles('Hello Styles') }}
+        <script src="{{ scripts('main') }}"></script>
+    </body>
+</html>

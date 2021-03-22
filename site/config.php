@@ -124,12 +124,13 @@ $config->httpHosts = array('franz-atelier.local', 'www.franz-atelier.local');
  */
 $config->debug = false;
 
-$config->paths->vendor = dirname(__DIR__) . '/vendor';
+$config->paths->vendor = $config->paths->root . 'vendor/';
 
-$config->paths->views = $config->paths->templates . 'views';
+$config->urls->set('css', 'site/templates/public/css/');
+$config->urls->set('js', 'site/templates/public/js/');
 
 $config->twigDebug = true;
-$config->twigTemplates = $config->paths->views;
+$config->twigTemplates = $config->paths->templates . 'views';
 
 
 setlocale(LC_ALL, 'en_US.UTF-8');

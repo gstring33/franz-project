@@ -42,14 +42,14 @@ class TwigRenderer
     private function getFunctions(): array
     {
         $functions = [
-            new TwigFunction('scripts', function($path) {
-                return $path;
+            new TwigFunction('scripts', function($filename) {
+                return $this->wire->config->urls->get('js') . $filename . '.js?c=' . time();
             }),
-            new TwigFunction('styles', function($path) {
-                return $path;
+            new TwigFunction('styles', function($filename) {
+                return $this->wire->config->urls->get('css') . $filename . '.css?c=' . time();
             }),
-
         ];
+
         return $functions;
     }
 }

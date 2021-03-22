@@ -1,6 +1,7 @@
 # Wire
 site/assets/*
 site/modules/*
+site/templates/public/*
 vendor/*
 node_modules/*
 wire/*
