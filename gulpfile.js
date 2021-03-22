@@ -2,16 +2,39 @@ const { src, dest, parallel, task } = require('gulp');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-const autoprefixer = require('gulp-autoprefixer')
-cleanCSS = require('gulp-clean-css')
-purgecss = require('gulp-purgecss')
+const postcss = require('gulp-postcss');
+const cssnano = require('cssnano');
+const autoprefixer = require('autoprefixer');
 
 const paths = {
     src: 'site/templates/dist/',
     dest: 'site/templates/public/'
 }
 
+// ----- BUILD FOR DEV ----- //
+
 task('build-js', function(cb) {
+    return src(paths.src + 'js/*.js')
+        .pipe(babel())
+        .pipe(dest(paths.dest + 'js/'))
+})
+
+task('build-css', function(cb) {
+    const plugins = [
+        autoprefixer(),
+        cssnano()
+    ]
+
+    return src(paths.src + 'css/*.css')
+        .pipe(postcss(plugins))
+        .pipe(dest(paths.dest + 'css/'))
+})
+
+exports.default = parallel('build-js', 'build-css')
+
+// ----- BUILD FOR PROD ----- //
+
+task('build-js-prod', function(cb) {
     return src(paths.src + 'js/*.js')
         .pipe(babel())
         .pipe(dest(paths.dest + 'js/'))
@@ -20,12 +43,17 @@ task('build-js', function(cb) {
         .pipe(dest(paths.dest + 'js/'));
 })
 
-task('build-css', function(cb) {
+task('build-css-prod', function(cb) {
+    const plugins = [
+        autoprefixer(),
+        cssnano()
+    ]
+
     return src(paths.src + 'css/*.css')
-        .pipe(autoprefixer())
-        .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(rename( { extname: '.min.css'}))
+        .pipe(postcss(plugins))
+        .pipe(dest(paths.dest + 'css/'))
+        .pipe(rename({ extname: '.min.css' }))
         .pipe(dest(paths.dest + 'css/'));
 })
 
-exports.default = parallel('build-js', 'build-css')
+exports.prod = parallel('build-js-prod', 'build-css-prod')
