@@ -6,11 +6,6 @@ const del = require('del');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 
-const rollup = require('gulp-better-rollup');
-const babel = require('rollup-plugin-babel');
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-
 const paths = {
     src: 'site/templates/dist/',
     dest: 'site/templates/public/'
@@ -27,7 +22,6 @@ task('clean:public', function() {
 
 task('build:js', function(cb) {
     return src(paths.src + 'js/*.js')
-        .pipe(rollup({ plugins: [babel(), resolve(), commonjs()] }, 'umd'))
         .pipe(dest(paths.dest + 'js/'))
 })
 
