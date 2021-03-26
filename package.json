@@ -24,13 +24,18 @@
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-better-rollup": "^4.0.1",
     "gulp-postcss": "^9.0.0",
     "gulp-purgecss": "^4.0.3",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
     "node-sass": "^5.0.0",
-    "postcss": "^8.2.8"
+    "postcss": "^8.2.8",
+    "rollup": "^2.42.4",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "browserslist": [
     "defaults",

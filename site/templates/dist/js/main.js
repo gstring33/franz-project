@@ -1,5 +1,3 @@
-function saySomething (something) {
-    console.log(something)
-}
+import sayHello from "./components/sayHello";
 
-saySomething("Hello World");
+sayHello("Hello");

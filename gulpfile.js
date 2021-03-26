@@ -1,11 +1,15 @@
 const { src, dest, parallel, series, task, watch } = require('gulp');
-const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const postcss = require('gulp-postcss');
 const del = require('del');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
+
+const rollup = require('gulp-better-rollup');
+const babel = require('rollup-plugin-babel');
+const resolve = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
 
 const paths = {
     src: 'site/templates/dist/',
@@ -23,7 +27,7 @@ task('clean:public', function() {
 
 task('build:js', function(cb) {
     return src(paths.src + 'js/*.js')
-        .pipe(babel())
+        .pipe(rollup({ plugins: [babel(), resolve(), commonjs()] }, 'umd'))
         .pipe(dest(paths.dest + 'js/'))
 })
 
@@ -43,7 +47,7 @@ exports.default = series('clean:public', parallel('build:js', 'build:css'))
 
 task('build:js:prod', function(cb) {
     return src(paths.src + 'js/*.js')
-        .pipe(babel())
+        .pipe(rollup({ plugins: [babel(), resolve(), commonjs()] }, 'umd'))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.dest + 'js/'));
