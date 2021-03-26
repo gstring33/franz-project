@@ -1,3 +1,11 @@
 h1 {
+    color: lightblue;
+}
+
+p {
     color: lightgrey;
+}
+
+p {
+    font-size: 20px;
 }

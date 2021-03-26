@@ -15,11 +15,15 @@ class TwigRenderer
     /** @var Environment */
     private $twig;
 
+    /** @var FilesystemLoader */
+    private $loader;
+
     public function __construct()
     {
         $this->wire = ProcessWire::getCurrentInstance();
-        $loader = new FilesystemLoader($this->wire->config('twigTemplates'));
-        $twig = new Environment($loader, ['debug' => $this->wire->config('twigDebug')]);
+        $this->loader = new FilesystemLoader($this->wire->config('twigTemplates'));
+        $twig = new Environment($this->loader, ['debug' => $this->wire->config('twigDebug')]);
+        $this->addNamespaces($this->wire->config('twigTemplateNamespaces'));
         foreach ($this->getFunctions() as $function) {
             $twig->addFunction($function);
         }
@@ -53,5 +57,16 @@ class TwigRenderer
         ];
 
         return $functions;
+    }
+
+    /**
+     * @param array $paths
+     * @throws \Twig\Error\LoaderError
+     */
+    public function addNamespaces(array $namespaces)
+    {
+        foreach ($namespaces as $namespace => $path) {
+            $this->loader->addPath($path, $namespace);
+        }
     }
 }

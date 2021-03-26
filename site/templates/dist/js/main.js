@@ -1,1 +1,5 @@
-console.log('Scriüts successffully compiled from Gulp')
+function saySomething (something) {
+    console.log(something)
+}
+
+saySomething("Hello World");
