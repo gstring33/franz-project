@@ -13,7 +13,8 @@ const commonjs = require('rollup-plugin-commonjs');
 
 const paths = {
     src: 'site/templates/dist/',
-    dest: 'site/templates/public/'
+    dest: 'site/templates/public/',
+    node_modules: 'node_modules/'
 }
 
 task('clean:public', function() {
@@ -21,6 +22,18 @@ task('clean:public', function() {
         paths.dest + 'js/*',
         paths.dest + 'css/*'
     ])
+})
+
+task('build:js:vendor', function(cb) {
+    return src([
+        paths.node_modules + 'jquery/dist/jquery.min.js'
+    ])
+        .pipe(rename({
+            dirname: 'js',
+            basename: "vendor",
+            extname: ".min.js"
+        }))
+        .pipe(dest(paths.dest + 'js'))
 })
 
 // ----- BUILD FOR DEV ----- //
@@ -50,7 +63,7 @@ task('watch', function () {
     watch(paths.src + 'css/*.css', series('build:css'))
 })
 
-exports.default = series('clean:public', parallel('build:js', 'build:css'))
+exports.default = series('clean:public', parallel('build:js:vendor', 'build:js', 'build:css'))
 
 // ----- BUILD FOR PROD ----- //
 
