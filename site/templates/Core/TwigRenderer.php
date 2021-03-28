@@ -54,6 +54,9 @@ class TwigRenderer
                 return $this->wire->config->urls->get('js') . $file . '.js?c=' . time();
             }),
             new TwigFunction('styles', function($filename) {
+                if ($filename === 'vendors') {
+                    return $this->wire->config->urls->get('css') . $filename . '.min.css?c=' . time();
+                }
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
                 return $this->wire->config->urls->get('css') . $file . '.css?c=' . time();
             }),

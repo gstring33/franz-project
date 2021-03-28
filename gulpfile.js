@@ -32,6 +32,16 @@ task('build:js:vendor', function(cb) {
         .pipe(dest(paths.dest + 'js'))
 })
 
+task('build:css:vendor', function(cb) {
+    let vendors = [
+        paths.node_modules + 'bootstrap/dist/css/bootstrap.min.css'
+    ]
+
+    return src(vendors)
+        .pipe(concat('vendors.min.css'))
+        .pipe(dest(paths.dest + 'css'))
+})
+
 // ----- BUILD FOR DEV ----- //
 
 task('build:js', function(cb) {
@@ -50,7 +60,15 @@ task('watch', function () {
     watch(paths.src + 'css/*.css', series('build:css'))
 })
 
-exports.default = series('clean:public', parallel('build:js:vendor', 'build:js', 'build:css'))
+exports.default = series(
+    'clean:public',
+    parallel(
+        'build:js:vendor',
+        'build:css:vendor',
+        'build:js',
+        'build:css'
+    )
+)
 
 // ----- BUILD FOR PROD ----- //
 
@@ -73,4 +91,12 @@ task('build:css:prod', function(cb) {
         .pipe(dest(paths.dest + 'css/'));
 })
 
-exports.prod = series('clean:public', parallel('build:js:vendor', 'build:js:prod', 'build:css:prod'));
+exports.prod = series(
+    'clean:public',
+    parallel(
+        'build:js:vendor',
+        'build:css:vendor',
+        'build:js:prod',
+        'build:css:prod'
+    )
+);
