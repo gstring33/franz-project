@@ -5,6 +5,7 @@ const postcss = require('gulp-postcss');
 const del = require('del');
 const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
+const concat = require('gulp-concat')
 
 const rollup = require('gulp-better-rollup');
 const babel = require('rollup-plugin-babel');
@@ -25,14 +26,12 @@ task('clean:public', function() {
 })
 
 task('build:js:vendor', function(cb) {
-    return src([
-        paths.node_modules + 'jquery/dist/jquery.min.js'
-    ])
-        .pipe(rename({
-            dirname: 'js',
-            basename: "vendor",
-            extname: ".min.js"
-        }))
+    let vendors = [
+        paths.node_modules + 'jquery/dist/jquery.min.js',
+        paths.node_modules + 'bootstrap/dist/js/bootstrap.min.js'
+    ];
+    return src(vendors)
+        .pipe(concat('vendor.min.js'))
         .pipe(dest(paths.dest + 'js'))
 })
 
