@@ -35,7 +35,7 @@ task('build:js:vendor', function(cb) {
 // ----- BUILD FOR DEV ----- //
 
 task('build:js', function(cb) {
-    return src(paths.src + 'js/*.js')
+    return src(paths.src + 'js/**/*.js')
         .pipe(rename({ extname: '.js' }))
         .pipe(dest(paths.dest + 'js'));
 })
@@ -55,7 +55,7 @@ exports.default = series('clean:public', parallel('build:js:vendor', 'build:js',
 // ----- BUILD FOR PROD ----- //
 
 task('build:js:prod', function(cb) {
-    return src(paths.src + 'js/*.js')
+    return src(paths.src + 'js/**/*.js')
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.dest + 'js/'));
