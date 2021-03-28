@@ -7,11 +7,6 @@ const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const concat = require('gulp-concat')
 
-const rollup = require('gulp-better-rollup');
-const babel = require('rollup-plugin-babel');
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-
 const paths = {
     src: 'site/templates/dist/',
     dest: 'site/templates/public/',
@@ -40,17 +35,8 @@ task('build:js:vendor', function(cb) {
 // ----- BUILD FOR DEV ----- //
 
 task('build:js', function(cb) {
-    return src(paths.src + 'js/main.js')
-        .pipe(rollup(
-            {
-                plugins: [
-                    babel(),
-                    resolve(),
-                    commonjs()
-                ]
-            },
-            'umd'
-        ))
+    return src(paths.src + 'js/*.js')
+        .pipe(rename({ extname: '.js' }))
         .pipe(dest(paths.dest + 'js'));
 })
 
@@ -70,7 +56,6 @@ exports.default = series('clean:public', parallel('build:js:vendor', 'build:js',
 
 task('build:js:prod', function(cb) {
     return src(paths.src + 'js/*.js')
-        .pipe(rollup({ plugins: [babel(), resolve(), commonjs()] }, 'umd'))
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.dest + 'js/'));
@@ -88,4 +73,4 @@ task('build:css:prod', function(cb) {
         .pipe(dest(paths.dest + 'css/'));
 })
 
-exports.prod = series(parallel('clean:public', 'build:js:prod', 'build:css:prod'));
+exports.prod = series('clean:public', parallel('build:js:vendor', 'build:js:prod', 'build:css:prod'));
