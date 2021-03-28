@@ -47,6 +47,9 @@ class TwigRenderer
     {
         $functions = [
             new TwigFunction('scripts', function($filename) {
+                if ($filename === 'vendors') {
+                    return $this->wire->config->urls->get('js') . $filename . '.min.js?c=' . time();
+                }
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
                 return $this->wire->config->urls->get('js') . $file . '.js?c=' . time();
             }),
