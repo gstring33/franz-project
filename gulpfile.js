@@ -29,10 +29,11 @@ task('build:js:vendor', function(cb) {
     let vendors = [
         paths.node_modules + 'jquery/dist/jquery.min.js',
         paths.node_modules + 'jquery-migrate/dist/jquery-migrate.min.js',
+        paths.node_modules + '@popperjs/core/dist/umd/popper.min.js',
         paths.node_modules + 'bootstrap/dist/js/bootstrap.min.js'
     ];
     return src(vendors)
-        .pipe(concat('vendor.min.js'))
+        .pipe(concat('vendors.min.js'))
         .pipe(dest(paths.dest + 'js'))
 })
 
