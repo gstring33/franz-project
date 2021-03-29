@@ -15,11 +15,15 @@ class TwigRenderer
     /** @var Environment */
     private $twig;
 
+    /** @var FilesystemLoader */
+    private $loader;
+
     public function __construct()
     {
         $this->wire = ProcessWire::getCurrentInstance();
-        $loader = new FilesystemLoader($this->wire->config('twigTemplates'));
-        $twig = new Environment($loader, ['debug' => $this->wire->config('twigDebug')]);
+        $this->loader = new FilesystemLoader($this->wire->config('twigTemplates'));
+        $twig = new Environment($this->loader, ['debug' => $this->wire->config('twigDebug')]);
+        $this->addNamespaces($this->wire->config('twigTemplateNamespaces'));
         foreach ($this->getFunctions() as $function) {
             $twig->addFunction($function);
         }
@@ -43,15 +47,32 @@ class TwigRenderer
     {
         $functions = [
             new TwigFunction('scripts', function($filename) {
+                if ($filename === 'vendors') {
+                    return $this->wire->config->urls->get('js') . $filename . '.min.js?c=' . time();
+                }
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
                 return $this->wire->config->urls->get('js') . $file . '.js?c=' . time();
             }),
             new TwigFunction('styles', function($filename) {
+                if ($filename === 'vendors') {
+                    return $this->wire->config->urls->get('css') . $filename . '.min.css?c=' . time();
+                }
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
                 return $this->wire->config->urls->get('css') . $file . '.css?c=' . time();
             }),
         ];
 
         return $functions;
+    }
+
+    /**
+     * @param array $paths
+     * @throws \Twig\Error\LoaderError
+     */
+    public function addNamespaces(array $namespaces)
+    {
+        foreach ($namespaces as $namespace => $path) {
+            $this->loader->addPath($path, $namespace);
+        }
     }
 }

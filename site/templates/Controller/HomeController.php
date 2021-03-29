@@ -24,6 +24,6 @@ class HomeController extends AbstractController
     {
         $sayHello = $this->sayHello->sayHello();
 
-        $this->render('home.html.twig', ['message' => $sayHello . ' Martin']);
+        $this->render('@content/home.html.twig', ['message' => $sayHello . ' Martin']);
     }
 }
