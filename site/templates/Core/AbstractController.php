@@ -2,7 +2,9 @@
 
 namespace App\Core;
 
+use ProcessWire\Page;
 use ProcessWire\ProcessWire;
+use ProcessWire\Template;
 use \Twig\Environment;
 
 class AbstractController
@@ -19,6 +21,7 @@ class AbstractController
     public function __construct()
     {
         $this->wire = ProcessWire::getCurrentInstance();
+
         $this->twig = new TwigRenderer();
     }
 
@@ -27,7 +30,12 @@ class AbstractController
      */
     public function page(): Page
     {
-        return $this->wire('page');
+        return $this->wire->page;
+    }
+
+    public function template(): Template
+    {
+        return $this->wire->page->template;
     }
 
     /**
@@ -36,6 +44,6 @@ class AbstractController
      */
     public function render(string $view, array $params)
     {
-        echo $this->twig->render($view, $params);
+        return $this->twig->render($view, $params);
     }
 }

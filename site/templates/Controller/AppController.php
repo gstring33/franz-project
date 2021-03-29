@@ -3,27 +3,34 @@
 namespace App\Controller;
 
 use App\Core\AbstractController;
-use App\Services\SayHello;
+use App\Services\BlockServices;
 
 class AppController extends AbstractController
 {
-    /** @var SayHello */
-    private $sayHello;
+   /** @var BlockServices  */
+    private $blockServices;
 
     /**
-     * Home constructor.
-     * @param SayHello $sayHello
+     * AppController constructor.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->sayHello = new SayHello();
+        $this->blockServices = new BlockServices();
     }
 
     public function index()
     {
-        $sayHello = $this->sayHello->sayHello();
+        $blocks = $this->blockServices->getBlocks($this->page());
+        $blocksViews = [];
+        if (count($blocks) > 0) {
+            foreach ($blocks as $blockname => $block) {
+                $blocksViews[] = $this->render('@blocks/' . $blockname . '.html.twig', [
+                    'block' => $block
+                ]);
+            }
+        }
 
-        $this->render('@content/home.html.twig', ['message' => $sayHello . ' Martin']);
+        echo $this->render('@content/home.html.twig', ['blocks' => $blocksViews]);
     }
 }
