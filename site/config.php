@@ -153,7 +153,8 @@ $config->urls->set('js', 'site/templates/public/js/');
 $config->twigTemplates = $config->paths->templates . 'views';
 $config->twigDebug = $_ENV['APP_ENV'] === 'dev' ? true : false;
 $config->twigTemplateNamespaces = [
-    'content' => $config->twigTemplates . '/content'
+    'content' => $config->twigTemplates . '/content',
+    'blocks' => $config->twigTemplates . '/blocks'
 ];
 
 
