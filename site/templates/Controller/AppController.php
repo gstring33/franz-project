@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Core\AbstractController;
 use App\Services\SayHello;
 
-class HomeController extends AbstractController
+class AppController extends AbstractController
 {
     /** @var SayHello */
     private $sayHello;
