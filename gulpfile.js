@@ -48,6 +48,15 @@ task('build:js:vendor', function(cb) {
         .pipe(dest(paths.dest + 'js'))
 })
 
+task('build:scss:vendor', function (cb) {
+    return src(paths.src + 'scss/vendors.scss')
+        .pipe(sass({ outputStyle: 'compressed' }))
+        .on('error', sass.logError)
+        .pipe(autoprefixer(autoprefixerConf, { cascade: true }))
+        .pipe(rename({ extname: '.min.css' }))
+        .pipe(dest(paths.dest + 'css/'));
+})
+
 // ----- TASKS: DEV ----- //
 
 task('build:js', function(cb) {
@@ -57,7 +66,7 @@ task('build:js', function(cb) {
 })
 
 task('build:scss', function(cb) {
-    return src(paths.src + 'scss/**/*.scss')
+    return src([paths.src + 'scss/**/*.scss', '!' + paths.src + 'scss/vendors.scss'])
         .pipe(sass({ outputStyle: 'expanded' }))
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer(autoprefixerConf))
@@ -74,6 +83,7 @@ exports.default = series(
     parallel(
         'build:js:vendor',
         'build:js',
+        'build:scss:vendor',
         'build:scss'
     )
 )
@@ -101,6 +111,7 @@ exports.prod = series(
     parallel(
         'build:js:vendor',
         'build:js:prod',
+        'build:scss:vendor',
         'build:scss:prod'
     )
 );
