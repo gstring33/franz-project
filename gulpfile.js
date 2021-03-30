@@ -1,17 +1,33 @@
 const { src, dest, parallel, series, task, watch } = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
-const postcss = require('gulp-postcss');
 const del = require('del');
-const cssnano = require('cssnano');
-const autoprefixer = require('autoprefixer');
+const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat')
+const sass = require('gulp-sass');
+
+// ----- CONFIG ----- //
 
 const paths = {
     src: 'site/templates/dist/',
     dest: 'site/templates/public/',
     node_modules: 'node_modules/'
 }
+
+const autoprefixerConf = [
+    "last 1 major version",
+    ">= 1%",
+    "Chrome >= 45",
+    "Firefox >= 38",
+    "Edge >= 12",
+    "Explorer >= 10",
+    "iOS >= 9",
+    "Safari >= 9",
+    "Android >= 4.4",
+    "Opera >= 30"
+]
+
+// ----- TASKS: COMMON ----- //
 
 task('clean:public', function() {
     return del([
@@ -32,17 +48,7 @@ task('build:js:vendor', function(cb) {
         .pipe(dest(paths.dest + 'js'))
 })
 
-task('build:css:vendor', function(cb) {
-    let vendors = [
-        paths.node_modules + 'bootstrap/dist/css/bootstrap.min.css'
-    ]
-
-    return src(vendors)
-        .pipe(concat('vendors.min.css'))
-        .pipe(dest(paths.dest + 'css'))
-})
-
-// ----- BUILD FOR DEV ----- //
+// ----- TASKS: DEV ----- //
 
 task('build:js', function(cb) {
     return src(paths.src + 'js/**/*.js')
@@ -50,27 +56,29 @@ task('build:js', function(cb) {
         .pipe(dest(paths.dest + 'js'));
 })
 
-task('build:css', function(cb) {
-    return src(paths.src + 'css/*.css')
-        .pipe(dest(paths.dest + 'css/'))
+task('build:scss', function(cb) {
+    return src(paths.src + 'scss/**/*.scss')
+        .pipe(sass({ outputStyle: 'expanded' }))
+        .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer(autoprefixerConf))
+        .pipe(dest(paths.dest + 'css'))
 })
 
 task('watch', function () {
     watch(paths.src + 'js/*.js', series('build:js'))
-    watch(paths.src + 'css/*.css', series('build:css'))
+    watch(paths.src + 'scss/*.scss', series('build:scss'))
 })
 
 exports.default = series(
     'clean:public',
     parallel(
         'build:js:vendor',
-        'build:css:vendor',
         'build:js',
-        'build:css'
+        'build:scss'
     )
 )
 
-// ----- BUILD FOR PROD ----- //
+// ----- TASKS: PROD ----- //
 
 task('build:js:prod', function(cb) {
     return src(paths.src + 'js/**/*.js')
@@ -79,14 +87,11 @@ task('build:js:prod', function(cb) {
         .pipe(dest(paths.dest + 'js/'));
 })
 
-task('build:css:prod', function(cb) {
-    const plugins = [
-        autoprefixer(),
-        cssnano()
-    ]
-
-    return src(paths.src + 'css/*.css')
-        .pipe(postcss(plugins))
+task('build:scss:prod', function(cb) {
+    return src(paths.src + 'scss/**/*.scss')
+        .pipe(sass({ outputStyle: 'compressed' }))
+        .on('error', sass.logError)
+        .pipe(autoprefixer(autoprefixerConf, { cascade: true }))
         .pipe(rename({ extname: '.min.css' }))
         .pipe(dest(paths.dest + 'css/'));
 })
@@ -95,8 +100,7 @@ exports.prod = series(
     'clean:public',
     parallel(
         'build:js:vendor',
-        'build:css:vendor',
         'build:js:prod',
-        'build:css:prod'
+        'build:scss:prod'
     )
 );

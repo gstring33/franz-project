@@ -3,4 +3,10 @@
 {% block content %}
     <h1>Hello, World!</h1>
     <p class="test"></p>
+    <hr/>
+    {% if blocks | length > 0 %}
+        {% for block in blocks %}
+            {{ block | raw }}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
