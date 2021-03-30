@@ -3,16 +3,23 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const del = require('del');
 const autoprefixer = require('gulp-autoprefixer');
-const concat = require('gulp-concat')
+const concat = require('gulp-concat');
 const sass = require('gulp-sass');
+const cleanCSS = require('gulp-clean-css');
 
 // ----- CONFIG ----- //
 
 const paths = {
     src: 'site/templates/dist/',
     dest: 'site/templates/public/',
-    node_modules: 'node_modules/'
+    node_modules: 'node_modules/',
 }
+
+const cssVendorsPaths = [
+    paths.src + 'vendors/fancybox/jquery.fancybox.css',
+    paths.src + 'vendors/icon-etlinefont/style.css"',
+    paths.node_modules + 'fontawesome-4.7/css/font-awesome.css'
+]
 
 const autoprefixerConf = [
     "last 1 major version",
@@ -46,6 +53,13 @@ task('build:js:vendor', function(cb) {
     return src(vendors)
         .pipe(concat('vendors.min.js'))
         .pipe(dest(paths.dest + 'js'))
+})
+
+task('build:css:vendor', function(cb) {
+    return src(cssVendorsPaths)
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(rename({ extname: '.min.css' }))
+        .pipe(dest(paths.dest + 'css/'));
 })
 
 task('build:scss:vendor', function (cb) {
@@ -84,6 +98,7 @@ exports.default = series(
         'build:js:vendor',
         'build:js',
         'build:scss:vendor',
+        'build:css:vendor',
         'build:scss'
     )
 )
@@ -112,6 +127,7 @@ exports.prod = series(
         'build:js:vendor',
         'build:js:prod',
         'build:scss:vendor',
+        'build:css:vendor',
         'build:scss:prod'
     )
 );

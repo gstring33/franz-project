@@ -53,8 +53,8 @@ class TwigRenderer
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
                 return $this->wire->config->urls->get('js') . $file . '.js?c=' . time();
             }),
-            new TwigFunction('styles', function($filename) {
-                if ($filename === 'vendors') {
+            new TwigFunction('styles', function($filename, $minify = false) {
+                if ($minify) {
                     return $this->wire->config->urls->get('css') . $filename . '.min.css?c=' . time();
                 }
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
