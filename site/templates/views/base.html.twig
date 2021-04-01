@@ -13,19 +13,8 @@
     <link rel="shortcut icon" href="">
     <!-- Google Fonts -->
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
-    <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="{{ styles('vendors', true) }}">
-    <link rel="stylesheet" href="{{ styles('jquery.fancybox', true) }}">
-    <link rel="stylesheet" href="{{ styles('font-awesome', true) }}">
-    <link rel="stylesheet" href="{{ styles('style', true) }}">
 
-    <!-- CSS Unify -->
-    <link rel="stylesheet" href="{{ styles('unify-core') }}">
-    <link rel="stylesheet" href="{{ styles('unify-components') }}">
-    <link rel="stylesheet" href="{{ styles('unify-globals') }}">
-
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="{{ styles('custom') }}">
+    {% include './common/styles.html.twig' %}
 </head>
 
 <body>
