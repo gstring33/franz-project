@@ -15,12 +15,6 @@ const paths = {
     node_modules: 'node_modules/',
 }
 
-const cssVendorsPaths = [
-    paths.src + 'vendors/fancybox/jquery.fancybox.css',
-    paths.src + 'vendors/icon-etlinefont/style.css"',
-    paths.node_modules + 'fontawesome-4.7/css/font-awesome.css'
-]
-
 const autoprefixerConf = [
     "last 1 major version",
     ">= 1%",
@@ -34,6 +28,31 @@ const autoprefixerConf = [
     "Opera >= 30"
 ]
 
+const cssVendorsPaths = [
+    paths.node_modules + 'bootstrap/dist/css/bootstrap.min.css',
+    paths.node_modules + 'simple-line-icons/dist/styles/simple-line-icons.css',
+    paths.src + 'vendors/fancybox/jquery.fancybox.css',
+    paths.src + 'vendors/icon-etlinefont/style.css',
+    paths.src + 'vendors/icon-line-pro/style.css',
+    paths.src + 'vendors/icon-hs/style.css',
+    paths.src + 'vendors/dzsparallaxer/dzsparallaxer.css',
+    paths.src + 'vendors/dzsparallaxer/dzsscroller/scroller.css',
+    paths.src + 'vendors/dzsparallaxer/advancedscroller/plugin.css',
+    paths.node_modules + 'animate.css/animate.css',
+    paths.node_modules + 'slick-carousel/slick/slick.css',
+    paths.src + 'vendors/typedjs/typed.css',
+    paths.src + 'vendors/hs-megamenu/src/hs.megamenu.css',
+    paths.node_modules + 'hamburgers/dist/hamburgers.css',
+    paths.node_modules + 'fontawesome-4.7/css/font-awesome.css'
+]
+
+const jsVendorsPaths = [
+    paths.node_modules + 'jquery/dist/jquery.min.js',
+    paths.node_modules + 'jquery-migrate/dist/jquery-migrate.min.js',
+    paths.node_modules + '@popperjs/core/dist/umd/popper.min.js',
+    paths.node_modules + 'bootstrap/dist/js/bootstrap.min.js'
+];
+
 // ----- TASKS: COMMON ----- //
 
 task('clean:public', function() {
@@ -44,13 +63,7 @@ task('clean:public', function() {
 })
 
 task('build:js:vendor', function(cb) {
-    let vendors = [
-        paths.node_modules + 'jquery/dist/jquery.min.js',
-        paths.node_modules + 'jquery-migrate/dist/jquery-migrate.min.js',
-        paths.node_modules + '@popperjs/core/dist/umd/popper.min.js',
-        paths.node_modules + 'bootstrap/dist/js/bootstrap.min.js'
-    ];
-    return src(vendors)
+    return src(jsVendorsPaths)
         .pipe(concat('vendors.min.js'))
         .pipe(dest(paths.dest + 'js'))
 })
@@ -58,15 +71,6 @@ task('build:js:vendor', function(cb) {
 task('build:css:vendor', function(cb) {
     return src(cssVendorsPaths)
         .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(rename({ extname: '.min.css' }))
-        .pipe(dest(paths.dest + 'css/'));
-})
-
-task('build:scss:vendor', function (cb) {
-    return src(paths.src + 'scss/vendors.scss')
-        .pipe(sass({ outputStyle: 'compressed' }))
-        .on('error', sass.logError)
-        .pipe(autoprefixer(autoprefixerConf, { cascade: true }))
         .pipe(rename({ extname: '.min.css' }))
         .pipe(dest(paths.dest + 'css/'));
 })
@@ -95,11 +99,10 @@ task('watch', function () {
 exports.default = series(
     'clean:public',
     parallel(
-        'build:js:vendor',
-        'build:js',
-        'build:scss:vendor',
         'build:css:vendor',
-        'build:scss'
+        'build:scss',
+        'build:js:vendor',
+        'build:js'
     )
 )
 
@@ -126,7 +129,6 @@ exports.prod = series(
     parallel(
         'build:js:vendor',
         'build:js:prod',
-        'build:scss:vendor',
         'build:css:vendor',
         'build:scss:prod'
     )
