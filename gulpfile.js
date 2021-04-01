@@ -29,12 +29,9 @@ const autoprefixerConf = [
 ]
 
 const cssVendorsPaths = [
-    paths.node_modules + 'bootstrap/dist/css/bootstrap.min.css',
+    paths.node_modules + 'bootstrap/dist/css/bootstrap.css',
     paths.node_modules + 'simple-line-icons/dist/styles/simple-line-icons.css',
     paths.src + 'vendors/fancybox/jquery.fancybox.css',
-    paths.src + 'vendors/icon-etlinefont/style.css',
-    paths.src + 'vendors/icon-line-pro/style.css',
-    paths.src + 'vendors/icon-hs/style.css',
     paths.src + 'vendors/dzsparallaxer/dzsparallaxer.css',
     paths.src + 'vendors/dzsparallaxer/dzsscroller/scroller.css',
     paths.src + 'vendors/dzsparallaxer/advancedscroller/plugin.css',
@@ -44,6 +41,12 @@ const cssVendorsPaths = [
     paths.src + 'vendors/hs-megamenu/src/hs.megamenu.css',
     paths.node_modules + 'hamburgers/dist/hamburgers.css',
     paths.node_modules + 'fontawesome-4.7/css/font-awesome.css'
+]
+
+const cssIconsEtStyleVendorsPaths = [
+    paths.src + 'vendors/icon-etlinefont/style.css',
+    paths.src + 'vendors/icon-line-pro/style.css',
+    paths.src + 'vendors/icon-hs/style.css',
 ]
 
 const jsVendorsPaths = [
@@ -75,6 +78,13 @@ task('build:css:vendor', function(cb) {
         .pipe(dest(paths.dest + 'css/'));
 })
 
+task('build:css-icons:vendor', function(cb) {
+    return src(cssIconsEtStyleVendorsPaths)
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(concat('icons-etstyle.min.css'))
+        .pipe(dest(paths.dest + 'css/'));
+})
+
 // ----- TASKS: DEV ----- //
 
 task('build:js', function(cb) {
@@ -100,6 +110,7 @@ exports.default = series(
     'clean:public',
     parallel(
         'build:css:vendor',
+        'build:css-icons:vendor',
         'build:scss',
         'build:js:vendor',
         'build:js'
@@ -130,6 +141,7 @@ exports.prod = series(
         'build:js:vendor',
         'build:js:prod',
         'build:css:vendor',
+        'build:css-icons:vendor',
         'build:scss:prod'
     )
 );
