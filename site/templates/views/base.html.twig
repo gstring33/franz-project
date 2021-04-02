@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Title -->
-    <title>Home Default | | Unify - Responsive Website Template</title>
+    <head>
+        <!-- Title -->
+        <title>Home Default | | Unify - Responsive Website Template</title>
 
-    <!-- Required Meta Tags Always Come First -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <!-- Required Meta Tags Always Come First -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="">
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="">
+        <!-- Google Fonts -->
+        <link rel="stylesheet"
+              href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
 
-    {% include './common/styles.html.twig' %}
-</head>
+        {% include './common/styles.html.twig' %}
+    </head>
 
-<body>
-<main>
-    <header id="js-header" class="u-header u-header--static">
-        {% include './common/header.html.twig' %}
-    </header>
-    {% block content %}{% endblock %}
-    <!-- Footer -->
-    <div id="contacts-section" class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
-        {% include './common/footer.html.twig' %}
-    </div>
-    <!-- End Footer -->
-    <!-- Copyright Footer -->
-    <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
-        {% include './common/footer_copyright.html.twig' %}
-    </footer>
-    <!-- End Copyright Footer -->
-</main>
+    <body>
+        <main>
+            <header id="js-header" class="u-header u-header--static">
+                {% include './common/header.html.twig' %}
+            </header>
+            {% block content %}{% endblock %}
+            <!-- Footer -->
+            <div id="contacts-section" class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
+                {% include './common/footer.html.twig' %}
+            </div>
+            <!-- End Footer -->
+            <!-- Copyright Footer -->
+            <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+                {% include './common/footer_copyright.html.twig' %}
+            </footer>
+            <!-- End Copyright Footer -->
 
-<!-- JS Global Compulsory -->
-<script src="{{ scripts('vendors') }}"></script>
-
-<!-- JS Unify -->
-<script src="{{ scripts('hs.core') }}"></script>
-
-<!-- JS Custom -->
-<script src="{{ scripts('custom') }}"></script>
-</body>
+            <!-- scripts --->
+            {% include './common/scripts.html.twig' %}
+        </main>
+    </body>
 </html>
