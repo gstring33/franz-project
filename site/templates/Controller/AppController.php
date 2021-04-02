@@ -31,6 +31,11 @@ class AppController extends AbstractController
             }
         }
 
-        echo $this->render('@content/home.html.twig', ['blocks' => $blocksViews]);
+        $navigation = $this->pages()->find('template=app');
+
+        echo $this->render('@content/home.html.twig', [
+            'blocks' => $blocksViews,
+            'navigation' => $navigation
+        ]);
     }
 }

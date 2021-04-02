@@ -3,6 +3,8 @@
 namespace App\Core;
 
 use ProcessWire\Page;
+use ProcessWire\PageArray;
+use ProcessWire\Pages;
 use ProcessWire\ProcessWire;
 use ProcessWire\Template;
 use \Twig\Environment;
@@ -31,6 +33,14 @@ class AbstractController
     public function page(): Page
     {
         return $this->wire->page;
+    }
+
+    /**
+     * @return Pages
+     */
+    public function pages(): Pages
+    {
+        return $this->wire->pages;
     }
 
     public function template(): Template
