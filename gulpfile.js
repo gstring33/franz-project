@@ -50,10 +50,17 @@ const cssIconsEtStyleVendorsPaths = [
 ]
 
 const jsVendorsPaths = [
-    paths.node_modules + 'jquery/dist/jquery.min.js',
-    paths.node_modules + 'jquery-migrate/dist/jquery-migrate.min.js',
-    paths.node_modules + '@popperjs/core/dist/umd/popper.min.js',
-    paths.node_modules + 'bootstrap/dist/js/bootstrap.min.js'
+    paths.node_modules + 'jquery/dist/jquery.js',
+    paths.node_modules + 'jquery-migrate/dist/jquery-migrate.js',
+    paths.node_modules + '@popperjs/core/dist/umd/popper.js',
+    paths.node_modules + 'bootstrap/dist/js/bootstrap.js',
+    paths.node_modules + 'slick-carousel/slick/slick.js',
+    paths.src + 'vendors/hs-megamenu/src/hs.megamenu.js',
+    paths.src + 'vendors/dzsparallaxer/dzsparallaxer.js',
+    paths.src + 'vendors/dzsparallaxer/dzsscroller/scroller.js',
+    paths.src + 'vendors/dzsparallaxer/advancedscroller/plugin.js',
+    paths.src + 'vendors/fancybox/jquery.fancybox.js',
+    paths.src + 'vendors/typedjs/typed.js'
 ];
 
 // ----- TASKS: COMMON ----- //
@@ -67,8 +74,23 @@ task('clean:public', function() {
 
 task('build:js:vendor', function(cb) {
     return src(jsVendorsPaths)
-        .pipe(concat('vendors.min.js'))
+        .pipe(uglify())
+        .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.dest + 'js'))
+})
+
+task('build:js:components', function(cb) {
+    return src([paths.src + 'js/components/**/*js'])
+        .pipe(uglify())
+        .pipe(rename({ extname: '.min.js' }))
+        .pipe(dest(paths.dest + 'js/components/'));
+})
+
+task('build:js:helpers', function(cb) {
+    return src([paths.src + 'js/helpers/**/*js'])
+        .pipe(uglify())
+        .pipe(rename({ extname: '.min.js' }))
+        .pipe(dest(paths.dest + 'js/helpers/'));
 })
 
 task('build:css:vendor', function(cb) {
@@ -88,7 +110,7 @@ task('build:css-icons:vendor', function(cb) {
 // ----- TASKS: DEV ----- //
 
 task('build:js', function(cb) {
-    return src(paths.src + 'js/**/*.js')
+    return src(paths.src + 'js/*.js')
         .pipe(rename({ extname: '.js' }))
         .pipe(dest(paths.dest + 'js'));
 })
@@ -113,6 +135,8 @@ exports.default = series(
         'build:css-icons:vendor',
         'build:scss',
         'build:js:vendor',
+        'build:js:components',
+        'build:js:helpers',
         'build:js'
     )
 )
@@ -120,7 +144,7 @@ exports.default = series(
 // ----- TASKS: PROD ----- //
 
 task('build:js:prod', function(cb) {
-    return src(paths.src + 'js/**/*.js')
+    return src(paths.src + 'js/*.js')
         .pipe(uglify())
         .pipe(rename({ extname: '.min.js' }))
         .pipe(dest(paths.dest + 'js/'));
@@ -139,6 +163,8 @@ exports.prod = series(
     'clean:public',
     parallel(
         'build:js:vendor',
+        'build:js:components',
+        'build:js:helpers',
         'build:js:prod',
         'build:css:vendor',
         'build:css-icons:vendor',
