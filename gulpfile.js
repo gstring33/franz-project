@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const argv = require('yargs').argv;
+const rsync = require('gulp-rsync');
 const { src, dest, parallel, series, task, watch } = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
