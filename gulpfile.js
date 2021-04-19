@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { src, dest, parallel, series, task, watch } = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
@@ -64,6 +66,10 @@ const jsVendorsPaths = [
 ];
 
 // ----- TASKS: COMMON ----- //
+
+task('test-dotenv', function () {
+    console.log(process.env.RSYNC_DEST)
+})
 
 task('clean:public', function() {
     return del([
