@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const argv = require('yargs').argv;
 const { src, dest, parallel, series, task, watch } = require('gulp');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
@@ -67,8 +68,12 @@ const jsVendorsPaths = [
 
 // ----- TASKS: COMMON ----- //
 
-task('test-dotenv', function () {
-    console.log(process.env.RSYNC_DEST)
+task('deploy', function () {
+    if(argv.dryrun) {
+        console.log('dryrun')
+    } else {
+        console.log(process.env.RSYNC_DEST)
+    }
 })
 
 task('clean:public', function() {
