@@ -69,14 +69,6 @@ const jsVendorsPaths = [
 
 // ----- TASKS: COMMON ----- //
 
-task('deploy', function () {
-    if(argv.dryrun) {
-        console.log('dryrun')
-    } else {
-        console.log(process.env.RSYNC_DEST)
-    }
-})
-
 task('clean:public', function() {
     return del([
         paths.dest + 'js/*',
@@ -183,3 +175,44 @@ exports.prod = series(
         'build:scss:prod'
     )
 );
+
+// ----- TASKS: DEPLOYMENT ----- //
+
+const exclude = [
+    '.idea/',
+    '.git/',
+    'node_modules/',
+    'wire/**',
+    '.env',
+    '.gitattributes',
+    '.gitignore',
+    '.htaccess',
+    '*.json',
+    '*.lock',
+    '*.md',
+    '*.js',
+    'LICENCE.TXT',
+    'site/assets/*',
+    'site/templates/dist/',
+]
+
+task('deploy', function () {
+    let options = {
+        root: './',
+        hostname: process.env.RSYNC_HOST,
+        port: process.env.RSYNC_PORT,
+        username: process.env.RSYNC_USERNAME,
+        destination: process.env.RSYNC_DEST,
+        incremental: true,
+        progress: true,
+        exclude: exclude,
+        recursive: true
+    }
+
+    if(argv.dryrun) {
+        options.dryrun = true;
+    }
+
+    return src('./')
+        .pipe(rsync(options));
+})
