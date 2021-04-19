@@ -196,7 +196,7 @@ const exclude = [
     'site/templates/dist/',
 ]
 
-task('deploy', function () {
+task('deploy:prod', function () {
     let options = {
         root: './',
         hostname: process.env.RSYNC_HOST,
