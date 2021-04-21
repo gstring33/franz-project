@@ -31,12 +31,12 @@ class AppController extends AbstractController
             }
         }
 
-        $home = $this->pages()->get('template=home');
-        $current = $this->page()->title;
+        $navigationConf = $this->pages()->get('template=navigation');
         $navigation = [
-            'home' => $home,
-            'items' => $home->children,
-            'current' => $current
+            'icon' => $navigationConf->image->size(300,100),
+            'current' => $this->page()->title,
+            'home' => $this->pages()->get('template=home'),
+            'items' => $this->pages()->find('parent.template=home')
         ];
 
         echo $this->render('@content/home.html.twig', [

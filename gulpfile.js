@@ -191,6 +191,7 @@ const exclude = [
     '*.lock',
     '*.md',
     '*.js',
+    '*.php',
     'LICENCE.TXT',
     'site/assets/*',
     'site/templates/dist/',
