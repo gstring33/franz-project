@@ -1,7 +1,0 @@
-{% for content in block %}
-    <h2>Block Title: {{ content.title }}</h2>
-    <p>{{ content.text | raw }}</p>
-    {% for img in content.images %}
-        <img src="{{ img.url }}" width="100px">
-    {% endfor %}
-{% endfor %}
