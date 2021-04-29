@@ -60,6 +60,9 @@ class TwigRenderer
                 $file = $this->wire->config->isDevEnvironment ? $filename : $filename . '.min';
                 return $this->wire->config->urls->get('css') . $file . '.css?c=' . time();
             }),
+            new TwigFunction('getCategories', function($templateName) {
+                return $this->wire->pages->find('template=' . $templateName . ',status=hidden');
+            })
         ];
 
         return $functions;
