@@ -1,0 +1,50 @@
+{% for content in block %}
+    <section class="container g-py-100">
+        <div class="row justify-content-center g-mb-60">
+            <div class="col-lg-7">
+                <!-- Heading -->
+                <div class="text-center">
+                    <h2 class="h4 text-uppercase mb-3">{{ content.title }}</h2>
+                    <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-2"></div>
+                    <p class="mb-0">{{ content.title2 }}</p>
+                </div>
+                <!-- End Heading -->
+            </div>
+        </div>
+
+        {% if content.image_category %}
+            <!-- Cubeportfolio Filter -->
+            <ul id="filterControls" class="text-center u-filter-v1 g-mb-40">
+                <li class="list-inline-item cbp-filter-item cbp-filter-item-active g-cursor-pointer g-transition-0_2" data-filter="*">All</li>
+                {% set categories = getCategories('category_product') %}
+                {% for category in categories %}
+                    <li class="list-inline-item cbp-filter-item text-uppercase g-cursor-pointer g-transition-0_2" data-filter=".js-{{ category.id }}">{{ category.title }}</li>
+                {% endfor %}
+            </ul>
+            <!-- End Cubeportfolio Filter -->
+
+            <!-- Cubeportfolio container -->
+            <div class="cbp" data-controls="#filterControls">
+                {% for imageCategory in content.image_category %}
+                    <div class="cbp-item js-{{ imageCategory.category_product }}">
+                        <!-- Figure -->
+                        <figure class="u-info-v1-4 g-overflow-hidden mb-0">
+                            <!-- Figure Image -->
+                            <img class="w-100 u-info-v1-4__item-regular g-transition-0_2" src="{{ imageCategory.image.size(363,245).url }}" alt="Image {{ imageCategory.category_product }}">
+                            <!-- End Figure Image-->
+
+                            <!-- Figure Caption -->
+                            <figcaption class="u-info-v1-4__item-hidden g-transition-0_2 g-bg-black g-color-white g-px-30 g-py-10">
+                                <h4 class="h6 g-font-weight-500 mb-0">{{ imageCategory.title2 }}</h4>
+                                <em class="d-block g-color-white-opacity-0_8 g-font-style-normal g-font-size-13">Franz Thiery</em>
+                            </figcaption>
+                            <!-- End Figure Caption-->
+                        </figure>
+                        <!-- End Figure -->
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- End Cubeportfolio container -->
+        {% endif %}
+    </section>
+{% endfor %}

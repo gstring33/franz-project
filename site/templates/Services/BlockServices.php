@@ -8,7 +8,8 @@ use ProcessWire\RepeaterPageArray;
 class BlockServices
 {
     const APP_BLOCKS = [
-        'block_text_slider'
+        'block_text_slider',
+        'block_cube_portfolio'
     ];
 
     /** @var array */

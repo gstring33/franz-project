@@ -39,6 +39,7 @@ const cssVendorsPaths = [
     paths.src + 'vendors/dzsparallaxer/dzsparallaxer.css',
     paths.src + 'vendors/dzsparallaxer/dzsscroller/scroller.css',
     paths.src + 'vendors/dzsparallaxer/advancedscroller/plugin.css',
+    paths.src + 'vendors/cubeportfolio/css/cubeportfolio.css',
     paths.node_modules + 'animate.css/animate.css',
     paths.node_modules + 'slick-carousel/slick/slick.css',
     paths.src + 'vendors/typedjs/typed.css',
@@ -64,7 +65,8 @@ const jsVendorsPaths = [
     paths.src + 'vendors/dzsparallaxer/dzsscroller/scroller.js',
     paths.src + 'vendors/dzsparallaxer/advancedscroller/plugin.js',
     paths.src + 'vendors/fancybox/jquery.fancybox.js',
-    paths.src + 'vendors/typedjs/typed.js'
+    paths.src + 'vendors/typedjs/typed.js',
+    paths.src + 'vendors/cubeportfolio/js/jquery.cubeportfolio.js'
 ];
 
 // ----- TASKS: COMMON ----- //
