@@ -74,7 +74,8 @@ const jsVendorsPaths = [
 task('clean:public', function() {
     return del([
         paths.dest + 'js/*',
-        paths.dest + 'css/*'
+        paths.dest + 'css/*',
+        paths.dest + 'fonts/*'
     ])
 })
 
@@ -113,6 +114,16 @@ task('build:css-icons:vendor', function(cb) {
         .pipe(dest(paths.dest + 'css/'));
 })
 
+task('build:fonts', function(cb){
+    return src(paths.src + 'fonts/*')
+        .pipe(dest(paths.dest + 'fonts/'))
+})
+
+task('build:css:fonts', function(cb){
+    return src(paths.src + 'vendors/icon-hs/fonts/*')
+        .pipe(dest(paths.dest + 'css/fonts/'))
+})
+
 // ----- TASKS: DEV ----- //
 
 task('build:js', function(cb) {
@@ -139,6 +150,8 @@ exports.default = series(
     parallel(
         'build:css:vendor',
         'build:css-icons:vendor',
+        'build:fonts',
+        'build:css:fonts',
         'build:scss',
         'build:js:vendor',
         'build:js:components',
@@ -174,6 +187,8 @@ exports.prod = series(
         'build:js:prod',
         'build:css:vendor',
         'build:css-icons:vendor',
+        'build:fonts',
+        'build:css:fonts',
         'build:scss:prod'
     )
 );
