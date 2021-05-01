@@ -9,7 +9,8 @@ class BlockServices
 {
     const APP_BLOCKS = [
         'block_text_slider',
-        'block_cube_portfolio'
+        'block_cube_portfolio',
+        'block_faq'
     ];
 
     /** @var array */

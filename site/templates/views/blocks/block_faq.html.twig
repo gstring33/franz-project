@@ -1,0 +1,46 @@
+{% for content in block %}
+    <section class="g-bg-gray-gradient-opacity-v1">
+        <div class="container g-py-100">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Heading -->
+                    <div class="text-center g-mb-60">
+                        <div class="d-inline-block g-width-35 g-height-1 g-bg-primary mb-2"></div>
+                        <h2 class="g-color-black g-font-weight-600 mb-2">{{ content.title }}</h2>
+                        <p class="lead g-width-60x--md mx-auto">{{ content.text2 }}</p>
+                    </div>
+                    <!-- End Heading -->
+
+                    <div id="accordion" class="u-accordion u-accordion-color-primary" role="tablist"
+                         aria-multiselectable="true">
+                        {% for card in content.question_answer %}
+                            <!-- Card -->
+                            <div class="card g-brd-none rounded g-mb-20">
+                                <div id="accordion-heading-01" class="g-pa-0" role="tab">
+                                    <h5 class="mb-0">
+                                        <a class="collapsed d-flex justify-content-between u-shadow-v19 g-color-main g-text-underline--none--hover rounded g-px-30 g-py-20"
+                                           href="#accordion-body-{{ loop.index }}" data-toggle="collapse" data-parent="#accordion"
+                                           aria-expanded="false" aria-controls="accordion-body-01">
+                                            {{ card.text2 }}
+                                            <span class="u-accordion__control-icon g-color-primary">
+                                                <i class="fa fa-angle-down"></i>
+                                                <i class="fa fa-angle-up"></i>
+                                            </span>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="accordion-body-{{ loop.index }}" class="collapse" role="tabpanel"
+                                     aria-labelledby="accordion-heading-01" data-parent="#accordion">
+                                    <div class="u-accordion__body g-color-gray-dark-v4 g-pa-30">
+                                       {{ card.text3 }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Card -->
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endfor %}
