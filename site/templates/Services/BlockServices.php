@@ -2,19 +2,22 @@
 
 namespace App\Services;
 
+use ProcessWire\Config;
 use ProcessWire\Page;
-use ProcessWire\RepeaterPageArray;
 
 class BlockServices
 {
-    const APP_BLOCKS = [
-        'block_text_slider',
-        'block_cube_portfolio',
-        'block_faq'
-    ];
+    /** @var string  */
+    private $blocksDirectory;
 
-    /** @var array */
-    private $selectedBlocks = [];
+    /**
+     * BlockServices constructor.
+     * @param Config $config
+     */
+    public function __construct(Config $config)
+    {
+        $this->blocksDirectory = $config->twigTemplates . '/blocks/';
+    }
 
     /**
      * @param Page $page
@@ -22,13 +25,14 @@ class BlockServices
      */
     public function getBlocks(Page $page)
     {
-        foreach (self::APP_BLOCKS as $blockname) {
-            $block = $page->get($blockname);
-            if ($block !== null) {
-                $this->selectedBlocks[$blockname] = $block;
+        $selectedBlocks = [];
+        foreach ($page->getFields() as $field) {
+            $fieldName = $field->name;
+            if (file_exists($this->blocksDirectory . $fieldName . '.html.twig')) {
+                $selectedBlocks[$fieldName] = $page->get($fieldName);
             }
         }
 
-        return $this->selectedBlocks;
+        return $selectedBlocks;
     }
 }
