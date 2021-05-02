@@ -2,8 +2,8 @@
 
 namespace App\Core;
 
+use ProcessWire\Config;
 use ProcessWire\Page;
-use ProcessWire\PageArray;
 use ProcessWire\Pages;
 use ProcessWire\ProcessWire;
 use ProcessWire\Template;
@@ -46,6 +46,11 @@ class AbstractController
     public function template(): Template
     {
         return $this->wire->page->template;
+    }
+
+    public function config(): Config
+    {
+        return $this->wire->config;
     }
 
     /**

@@ -16,7 +16,7 @@ class AppController extends AbstractController
     public function __construct()
     {
         parent::__construct();
-        $this->blockServices = new BlockServices();
+        $this->blockServices = new BlockServices($this->config());
     }
 
     public function index()
