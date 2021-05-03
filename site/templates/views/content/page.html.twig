@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if blocks | length > 0 %}
+        {% for block in blocks %}
+            {{ block | raw }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
