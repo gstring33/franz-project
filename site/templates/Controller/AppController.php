@@ -23,8 +23,13 @@ class AppController extends AbstractController
     {
         $blocksViews = $this->getBlocksViews();
         $navigation = $this->getNavigation();
+        $teaser = $this->render('@teasers/home.html.twig', [
+            'teaserTitle' => $this->page()->get('title2'),
+            'teaserTitle2' => $this->page()->get('title3')
+        ]);
 
         echo $this->render('@content/home.html.twig', [
+            'teaser' => $teaser,
             'blocks' => $blocksViews,
             'navigation' => $navigation
         ]);
