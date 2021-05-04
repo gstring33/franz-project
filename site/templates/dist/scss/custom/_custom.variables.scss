@@ -2,8 +2,13 @@
 // Typography
 //
 
+@font-face {
+  font-family: 'Lato Light';
+  src: url("/site/templates/public/fonts/lato/Lato-Light.ttf")  format("truetype") /* Safari, Android, iOS */
+}
+
 // Font Families
-$g-font-primary: "Open Sans", Helvetica, Arial, sans-serif !default;
+$g-font-primary: "Lato Light","Open Sans", Helvetica, Arial, sans-serif !default;
 $g-font-secondary: "Roboto Slab", Helvetica, Arial, sans-serif !default;
 $g-font-code: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $g-font-niconne: "Niconne", cursive !default;

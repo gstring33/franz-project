@@ -115,7 +115,7 @@ task('build:css-icons:vendor', function(cb) {
 })
 
 task('build:fonts', function(cb){
-    return src(paths.src + 'fonts/*')
+    return src(paths.src + 'fonts/**/*')
         .pipe(dest(paths.dest + 'fonts/'))
 })
 
