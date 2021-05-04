@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {{ teaser | raw }}
     {% if blocks | length > 0 %}
         {% for block in blocks %}
             {{ block | raw }}

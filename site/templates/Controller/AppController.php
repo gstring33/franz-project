@@ -19,7 +19,39 @@ class AppController extends AbstractController
         $this->blockServices = new BlockServices($this->config());
     }
 
+    public function home()
+    {
+        $blocksViews = $this->getBlocksViews();
+        $navigation = $this->getNavigation();
+        $teaser = $this->render('@teasers/home.html.twig', [
+            'teaserTitle' => $this->page()->get('title2'),
+            'teaserTitle2' => $this->page()->get('title3')
+        ]);
+
+        echo $this->render('@content/home.html.twig', [
+            'teaser' => $teaser,
+            'blocks' => $blocksViews,
+            'navigation' => $navigation
+        ]);
+    }
+
     public function index()
+    {
+        $blocksViews = $this->getBlocksViews();
+        $navigation = $this->getNavigation();
+
+        echo $this->render('@content/page.html.twig', [
+            'blocks' => $blocksViews,
+            'navigation' => $navigation
+        ]);
+    }
+
+    // ----- PRIVATE METHOD ----- //
+
+    /**
+     * @return array
+     */
+    private function getBlocksViews()
     {
         $blocks = $this->blockServices->getBlocks($this->page());
         $blocksViews = [];
@@ -31,6 +63,15 @@ class AppController extends AbstractController
             }
         }
 
+        return $blocksViews;
+    }
+
+    /**
+     * @return array
+     * @throws \ProcessWire\WireException
+     */
+    private function getNavigation()
+    {
         $navigationConf = $this->pages()->get('template=navigation');
         $home = $this->pages()->get('template=home');
         $navigation = [
@@ -40,9 +81,6 @@ class AppController extends AbstractController
             'items' => $home->children()
         ];
 
-        echo $this->render('@content/home.html.twig', [
-            'blocks' => $blocksViews,
-            'navigation' => $navigation
-        ]);
+        return $navigation;
     }
 }

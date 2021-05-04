@@ -154,7 +154,8 @@ $config->twigTemplates = $config->paths->templates . 'views';
 $config->twigDebug = $_ENV['APP_ENV'] === 'dev' ? true : false;
 $config->twigTemplateNamespaces = [
     'content' => $config->twigTemplates . '/content',
-    'blocks' => $config->twigTemplates . '/blocks'
+    'blocks' => $config->twigTemplates . '/blocks',
+    'teasers' => $config->twigTemplates . '/teasers'
 ];
 
 
