@@ -1,5 +1,5 @@
 {% for content in block %}
-    <section class="g-py-100">
+    <section class="g-py-100" {% if content.scroll_target %}id="scroll_target"{% endif %}>
         <div class="container">
             <div class="row">
                 <!-- Carousel -->
