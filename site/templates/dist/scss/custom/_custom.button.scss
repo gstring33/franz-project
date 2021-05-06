@@ -1,0 +1,19 @@
+.u-btn-salmon {
+  @include u-custom-button-flat ($dark-salmon, $g-color-white, $g-color-white);
+  @include u-custom-button-flat-hover (1, 1, $dark-salmon);
+  @include u-custom-button-flat-hover (1, 2, $dark-salmon);
+  @include u-custom-button-flat-hover (1, 3, $dark-salmon);
+  @include u-custom-button-flat-hover (1, 4, $dark-salmon);
+  @include u-custom-button-flat-hover (2, 1, $dark-salmon);
+  @include u-custom-button-flat-hover (2, 2, $dark-salmon);
+}
+
+.u-btn-light-pink {
+  @include u-custom-button-flat ($unbleached-silk, $g-color-white, $g-color-white);
+  @include u-custom-button-flat-hover (1, 1, $unbleached-silk);
+  @include u-custom-button-flat-hover (1, 2, $unbleached-silk);
+  @include u-custom-button-flat-hover (1, 3, $unbleached-silk);
+  @include u-custom-button-flat-hover (1, 4, $unbleached-silk);
+  @include u-custom-button-flat-hover (2, 1, $unbleached-silk);
+  @include u-custom-button-flat-hover (2, 2, $unbleached-silk);
+}
