@@ -1,1 +1,43 @@
 // Add here all your customized mixins
+
+@mixin u-custom-button-flat ($color-bg-brd, $color-text, $color-text-hover) {
+  color: $color-text;
+  background-color: $color-bg-brd;
+
+  &:hover,
+  &.active {
+    border-color: lighten($color-bg-brd, 10%);
+    background-color: lighten($color-bg-brd, 10%);
+  }
+
+  &:hover,
+  &:focus,
+  &.active {
+    color: $color-text-hover;
+  }
+
+  // Test from Oleg
+  &.g-btn-hover-reset {
+    &:hover,
+    &.active {
+      background-color: $color-bg-brd;
+      border-color: $color-bg-brd;
+    }
+  }
+}
+
+@mixin u-custom-button-flat-hover ($version, $type, $background) {
+  &.u-btn-hover-v#{$version}-#{$type} {
+    overflow: hidden;
+
+    &::after,
+    &:hover::after {
+      background-color: lighten($background, 5%);
+    }
+
+    &:hover {
+      background-color: $background;
+      overflow: hidden;
+    }
+  }
+}
