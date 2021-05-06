@@ -1,5 +1,5 @@
 {% for content in block %}
-    <section class="g-bg-gray-gradient-opacity-v1">
+    <section class="g-bg-gray-gradient-opacity-v1" {% if content.scroll_target %}id="scroll_target"{% endif %}>
         <div class="container g-py-100">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
