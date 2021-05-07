@@ -1,0 +1,10 @@
+{% for content in block %}
+    <section class="container u-ns-bg-v1-bottom g-bg-white g-py-100">
+        <div class="text-center block-heading row">
+            <div class="col-md-8 offset-2">
+                <div class="block-heading-h2">{{ content.title_textarea | raw }}</div>
+                <div class="h5 g-line-height-2">{{ content.text | raw }}</div>
+            </div>
+        </div>
+    </section>
+{% endfor %}
