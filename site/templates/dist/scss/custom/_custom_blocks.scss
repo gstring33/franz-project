@@ -1,0 +1,24 @@
+.block {
+  &-heading {
+    .h5 {
+      strong {
+        color: $middle-blue-green;
+        font-weight: 600;
+        border-bottom-color: $middle-blue-green;
+        border-bottom: solid 1px $middle-blue-green;
+        padding-bottom: .25rem;
+        line-height: 2;
+      }
+    }
+
+    &-h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+
+      strong {
+        color: $ming;
+        font-weight: 600;
+      }
+    }
+  }
+}
