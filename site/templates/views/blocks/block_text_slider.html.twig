@@ -14,13 +14,13 @@
                         {% for img in content.images %}
                             <div class="js-slide">
                                 <a class="js-fancybox d-block g-pos-rel" data-rel="lightbox-gallery--08-1"
-                                   href="{{ img.url }}" title="Lightbox Gallery"
+                                   href="{{ img.size(600,450).url }}" title="Lightbox Gallery"
                                    data-open-effect="bounceInDown"
                                    data-close-effect="bounceOutDown"
                                    data-open-speed="1000"
                                    data-close-speed="1000"
                                    data-blur-bg="true">
-                                    <img class="img-fluid w-100 rounded" data-lazy="{{ img.url }}"
+                                    <img class="img-fluid w-100 rounded" data-lazy="{{ img.size(600,450).url }}"
                                          alt="Image description">
                                 </a>
                             </div>
@@ -33,7 +33,7 @@
                          data-nav-for="#carouselCus1">
                         {% for img in content.images %}
                             <div class="js-slide g-px-10">
-                                <img class="img-fluid g-cursor-pointer rounded" data-lazy="{{ img.url }}"
+                                <img class="img-fluid g-cursor-pointer rounded" data-lazy="{{ img.size(600,450).url }}"
                                      alt="Image description">
                             </div>
                         {% endfor %}
