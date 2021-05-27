@@ -54,19 +54,19 @@
                             {% if item.hasChildren %}
                                 <!-- Mega Menu -->
                                 <div class="w-100 hs-mega-menu u-shadow-v11 font-weight-normal g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-mt-18 g-mt-8--lg--scrolling"
-                                     aria-labelledby="mega-menu-home">
+                                     aria-labelledby="mega-menu-home" >
                                     <div class="row align-items-stretch no-gutters">
-                                        <!-- Home (col) -->
+                                        <!-- Item child(col) -->
                                         <div class="col-lg-12">
                                             <ul class="list-unstyled">
                                                 {% for item in item.children %}
-                                                    <li class="dropdown-item {% if navigation.current == item.title %}active{% endif %}">
+                                                    <li class="dropdown-item {% if navigation.current == item.title %}active{% endif %}" >
                                                         <a href="{{ item.url }}" class="nav-link">{{ item.title }}</a>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
                                         </div>
-                                        <!-- End Home (col) -->
+                                        <!-- Item child (col) -->
                                     </div>
                                 </div>
                                 <!-- End Mega Menu -->
