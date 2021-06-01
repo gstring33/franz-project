@@ -10,7 +10,9 @@
 @import "custom.button";
 
 // Block
-@import "custom_blocks";
+@import "custom.blocks";
+
+@import "custom.navigation";
 
 .u-custom-bg-primary {
   background-color: $g-color-primary;
