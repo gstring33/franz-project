@@ -62,6 +62,26 @@ class TwigRenderer
             }),
             new TwigFunction('getCategories', function($templateName) {
                 return $this->wire->pages->find('template=' . $templateName . ',status=hidden');
+            }),
+            new TwigFunction('getWorkshops', function($totalPerRow = null) {
+                $results = $this->wire->pages->get('template=workshops')->children('template=workshop');
+                if ($totalPerRow === null) {
+                    return $results;
+                }
+
+                $rowIndex = 1;
+                $rows = [];
+                foreach ($results as $workshop) {
+                    if (count($rows[$rowIndex]) === $totalPerRow) {
+                        $rowIndex++;
+                    }
+                    $rows[$rowIndex][] = $workshop;
+                }
+
+                return [
+                    'total' => count($results),
+                    'rows' => $rows
+                ];
             })
         ];
 
