@@ -23,38 +23,52 @@
 
                                     <ul class="list-inline d-flex justify-content-between g-mb-15">
                                         <li class="list-inline-item">
-                                            Schwierigkeit : <span class="js-rating d-block g-color-primary" data-rating="5"></span>
+                                            Schwierigkeit : <span class="js-rating d-block g-color-secondary" data-rating="{{ workshop.difficulty }}"></span>
                                         </li>
                                     </ul>
 
                                     <p class="g-mb-15">
-                                        {{ workshop.text }}
+                                        {{ workshop.text2 }}
                                     </p>
 
                                     <ul class="list-unstyled">
                                         <li class="media g-mb-10">
                                             <span class="d-block g-color-gray-dark-v5 g-width-110">
-                                                <i class="icon-wallet g-pos-rel g-top-1 g-mr-5"></i> Sallery:
+                                                <i class="icon-wallet g-pos-rel g-top-1 g-mr-5"></i> Preis:
                                             </span>
-                                            <span class="media-body">$4000 - $5000</span>
+                                            <span class="media-body">
+                                                {% if workshop.is_price_set %}
+                                                    {{ workshop.price }} Eur
+                                                {% else %}
+                                                    Frei
+                                                {% endif %}
+                                            </span>
                                         </li>
                                         <li class="media g-mb-10">
                                             <span class="d-block g-color-gray-dark-v5 g-width-110">
-                                                <i class="icon-calendar g-pos-rel g-top-1 g-mr-5"></i> Date:
+                                                <i class="icon-calendar g-pos-rel g-top-1 g-mr-5"></i> Datum:
                                             </span>
-                                            <span class="media-body">3 July, 2017</span>
+                                            <span class="media-body">
+                                                {% if workshop.is_date_set %}
+                                                    {{ workshop.date }}
+                                                {% else %}
+                                                    Auf Anfrage
+                                                {% endif %}
+                                            </span>
                                         </li>
                                         <li class="media g-mb-10">
                                             <span class="d-block g-color-gray-dark-v5 g-width-110">
-                                                <i class="icon-user g-pos-rel g-top-1 g-mr-5"></i> Skills:
+                                                <i class="icon-wallet g-pos-rel g-top-1 g-mr-5"></i> Dauer:
                                             </span>
-                                            <span class="media-body">Photoshop, Sketch</span>
+                                            <span class="media-body">
+                                                {{ workshop.duration_value }} {% for type in workshop.duration_type %}{{ type.title }}{% endfor %}
+                                            </span>
                                         </li>
                                         <li class="media">
                                             <span class="d-block g-color-gray-dark-v5 g-width-110">
-                                                <i class="icon-location-pin g-pos-rel g-top-1 g-mr-5"></i> Location:
+                                                <i class="icon-location-pin g-pos-rel g-top-1 g-mr-5"></i> Ort:
                                             </span>
-                                            <span class="media-body">London, UK</span>
+                                            <span class="media-body">Atelier 67 in Reckenfeld</span>
                                         </li>
                                     </ul>
 
@@ -62,12 +76,9 @@
 
                                     <ul class="list-inline d-flex justify-content-between mb-0">
                                         <li class="list-inline-item">
-                                            <a class="u-tags-v1 g-font-size-12 g-color-main g-brd-around g-brd-gray-light-v3 g-bg-gray-dark-v2--hover g-brd-gray-dark-v2--hover g-color-white--hover rounded g-py-3 g-px-8" href="#">
-                                                Part-Time
+                                            <a class="btn u-btn-salmon rounded g-py-3 g-px-8" href="{{ workshop.url }}">
+                                                Mehr
                                             </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#">See Details</a>
                                         </li>
                                     </ul>
                                 </article>
@@ -78,8 +89,8 @@
                 {% endfor %}
 
                 <div class="text-center">
-                    <a class="btn btn-xl u-btn-outline-primary text-uppercase g-font-weight-600 g-font-size-12" href="#">
-                        View More Jobs
+                    <a class="btn btn-xl u-btn-outline-primary text-uppercase g-font-weight-600 g-font-size-12" href="/workshops">
+                        Alle Workshops anzeigen
                     </a>
                 </div>
             </div>
