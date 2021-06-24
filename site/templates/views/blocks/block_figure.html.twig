@@ -1,27 +1,29 @@
 {% for content in block %}
-    <section class="container g-pt-100 g-pb-40" {% if content.scroll_target %}id="scroll_target"{% endif %}>
-        <figure class="row">
-            <!-- Figure Image -->
-            <div class="col-md-8 offset-md-2 col-lg-4 offset-lg-0 g-mb-30">
-                <img class="w-100" src="{{ content.image.size(450,500).url }}" alt="Image Description">
-            </div>
-            <!-- End Figure Image -->
+    <section class="g-py-100 g-bg-gray-light-v5 g-pb-40" {% if content.scroll_target %}id="scroll_target"{% endif %}>
+        <div class="container">
+            <figure class="row">
+                <!-- Figure Image -->
+                <div class="col-md-8 offset-md-2 col-lg-4 offset-lg-0 g-mb-30">
+                    <img class="w-100" src="{{ content.image.size(450,500).url }}" alt="Image Description">
+                </div>
+                <!-- End Figure Image -->
 
-            <!-- Figure Body -->
-            <div class="col-lg-8">
-                <div class="d-flex justify-content-between g-mb-10">
-                    <div class="g-mb-20">
-                        <h4 class="h5 g-font-size-25 g-mb-5">{{ content.title }}</h4>
+                <!-- Figure Body -->
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-between g-mb-10">
+                        <div class="g-mb-20">
+                            <h4 class="h5 g-font-size-25 g-mb-5">{{ content.title }}</h4>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Figure Info -->
-                <div class="g-mb-50 g-font-size-18">
-                  {{ content.text | raw }}
+                    <!-- Figure Info -->
+                    <div class="g-mb-50 g-font-size-18">
+                        {{ content.text | raw }}
+                    </div>
+                    <!-- End Info -->
                 </div>
-                <!-- End Info -->
-            </div>
-            <!-- End Figure Body -->
-        </figure>
+                <!-- End Figure Body -->
+            </figure>
+        </div>
     </section>
 {% endfor %}
