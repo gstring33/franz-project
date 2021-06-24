@@ -82,6 +82,18 @@ class TwigRenderer
                     'total' => count($results),
                     'rows' => $rows
                 ];
+            }),
+            new TwigFunction('getNavigation', function() {
+                $navigationConf = $this->wire->pages->get('template=navigation');
+                $home = $this->wire->pages->get('template=home');
+                $navigation = [
+                    'icon' => $navigationConf->image->size(300,100),
+                    'current' => $this->wire->page->title,
+                    'home' => $home,
+                    'items' => $home->children()
+                ];
+
+                return $navigation;
             })
         ];
 

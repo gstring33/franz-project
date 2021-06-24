@@ -22,7 +22,6 @@ class AppController extends AbstractController
     public function home()
     {
         $blocksViews = $this->getBlocksViews();
-        $navigation = $this->getNavigation();
         $teaser = $this->render('@teasers/home.html.twig', [
             'teaserTitle' => $this->page()->get('title2'),
             'teaserTitle2' => $this->page()->get('title3')
@@ -31,14 +30,12 @@ class AppController extends AbstractController
         echo $this->render('@content/home.html.twig', [
             'teaser' => $teaser,
             'blocks' => $blocksViews,
-            'navigation' => $navigation
         ]);
     }
 
     public function workshopSingle()
     {
         echo $this->render('@content/workshop-single.html.twig', [
-            'navigation' => $this->getNavigation(),
             'workshop' => $this->page()
         ]);
     }
@@ -46,11 +43,9 @@ class AppController extends AbstractController
     public function index()
     {
         $blocksViews = $this->getBlocksViews();
-        $navigation = $this->getNavigation();
 
         echo $this->render('@content/page.html.twig', [
-            'blocks' => $blocksViews,
-            'navigation' => $navigation
+            'blocks' => $blocksViews
         ]);
     }
 
@@ -72,23 +67,5 @@ class AppController extends AbstractController
         }
 
         return $blocksViews;
-    }
-
-    /**
-     * @return array
-     * @throws \ProcessWire\WireException
-     */
-    private function getNavigation()
-    {
-        $navigationConf = $this->pages()->get('template=navigation');
-        $home = $this->pages()->get('template=home');
-        $navigation = [
-            'icon' => $navigationConf->image->size(300,100),
-            'current' => $this->page()->title,
-            'home' => $home,
-            'items' => $home->children()
-        ];
-
-        return $navigation;
     }
 }
