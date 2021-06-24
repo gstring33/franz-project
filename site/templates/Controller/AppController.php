@@ -35,6 +35,14 @@ class AppController extends AbstractController
         ]);
     }
 
+    public function workshopSingle()
+    {
+        echo $this->render('@content/workshop-single.html.twig', [
+            'navigation' => $this->getNavigation(),
+            'workshop' => $this->page()
+        ]);
+    }
+
     public function index()
     {
         $blocksViews = $this->getBlocksViews();
