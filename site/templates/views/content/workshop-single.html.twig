@@ -18,6 +18,10 @@
 
     <!-- Portfolio Single Item -->
     <section class="container g-py-100">
+        <div class="u-heading-v2-1--bottom g-mb-30">
+            <h2 class="u-heading-v2__title g-mb-10">{{ workshop.title }}</h2>
+            <h4 class="g-font-weight-200">{{ workshop.title2 }}</h4>
+        </div>
         {% if workshop.images.count > 0 %}
             <!-- Cube Portfolio Blocks - Content -->
             <div class="cbp g-mb-50" data-controls="#filterControls1" data-animation="quicksand" data-x-gap="30" data-y-gap="30" data-media-queries='[{"width": 1500, "cols": 3}, {"width": 1100, "cols": 3}, {"width": 800, "cols": 3}, {"width": 480, "cols": 2}, {"width": 300, "cols": 1}]'>
@@ -44,10 +48,6 @@
 
         <div class="row g-mb-70">
             <div class="col-md-8 g-mb-30">
-                <div class="u-heading-v2-1--bottom g-mb-30">
-                    <h2 class="u-heading-v2__title g-mb-10">{{ workshop.title }}</h2>
-                    <h4 class="g-font-weight-200">{{ workshop.title2 }}</h4>
-                </div>
                 <div class="mb-5 g-font-size-16">
                      {{ workshop.text | raw }}
                 </div>
