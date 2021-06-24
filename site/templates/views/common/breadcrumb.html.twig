@@ -1,0 +1,14 @@
+{% set breadcrumb = getBreadcrumb() %}
+<ul class="u-list-inline">
+    {% for item in breadcrumb %}
+        <li class="list-inline-item g-mr-5">
+            <a class="u-link-v5 g-color-main g-color-primary--hover {% if loop.last %}g-color-primary{% endif %}"
+               href="{{ item.link }}">
+                {{ item.name }}
+            </a>
+            {% if not loop.last %}
+                <i class="g-color-gray-light-v2 g-ml-5">/</i>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

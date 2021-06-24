@@ -94,6 +94,24 @@ class TwigRenderer
                 ];
 
                 return $navigation;
+            }),
+            new TwigFunction('getBreadcrumb', function() {
+                $items = explode('/', $this->wire->page->url);
+                $sanitizedItems = [
+                    ['name' => 'Home', 'link' => '/']
+                ];
+                foreach ($items as $index => $item) {
+                    if ($item === "") {
+                        unset($items[$index]);
+                    } else {
+                       $sanitizedItems[] = [
+                           'name' => ucfirst($item),
+                           'link' => $this->wire->pages->get('name=' . $item)->url
+                       ];
+                    }
+                }
+
+                return $sanitizedItems;
             })
         ];
 
