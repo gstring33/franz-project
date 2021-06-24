@@ -46,6 +46,11 @@
   @include gradient-directional($start-color: #0050c2, $end-color: #5180fa, $deg: 225deg);
 }
 
+/* custom green Gradient */
+.custom-bg-primary-lineargradient-v5 {
+  @include gradient-directional($start-color: #01a9b3, $end-color: $ming, $deg: 225deg);
+}
+
 /* Orange Gradient */
 .g-bg-orange-lineargradient {
   @include gradient-directional($start-color: #be1715, $end-color: #ed6d0f, $deg: 225deg);
