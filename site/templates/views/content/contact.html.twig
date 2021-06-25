@@ -1,9 +1,46 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {% if blocks | length > 0 %}
-        {% for block in blocks %}
-            {{ block | raw }}
-        {% endfor %}
-    {% endif %}
+    <section class="container g-pt-100 g-pb-40">
+        <div class="row justify-content-between">
+            <div class="col-lg-7 g-mb-60">
+                <h2 class="h3">Kontaktieren Sie mich</h2>
+                <p class="g-color-gray-dark-v3 g-font-size-16">We are a creative studio focusing on culture, luxury, editorial &amp; art. Somewhere between sophistication and simplicity.</p>
+
+                <hr class="g-my-40">
+
+                <!-- Contact Form -->
+                <form>
+                    <div class="g-mb-20">
+                        <label class="g-color-gray-dark-v2 g-font-weight-600 g-font-size-13">Name: <span class="g-color-red">*</span>
+                        </label>
+                        <input class="form-control g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-primary--focus g-brd-gray-light-v4 rounded-3 g-py-13 g-px-15" type="text">
+                    </div>
+
+                    <div class="g-mb-20">
+                        <label class="g-color-gray-dark-v2 g-font-weight-600 g-font-size-13">Email: <span class="g-color-red">*</span>
+                        </label>
+                        <input class="form-control g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-primary--focus g-brd-gray-light-v4 rounded-3 g-py-13 g-px-15" type="email">
+                    </div>
+
+                    <div class="g-mb-40">
+                        <label class="g-color-gray-dark-v2 g-font-weight-600 g-font-size-13">Nachricht: <span class="g-color-red">*</span>
+                        </label>
+                        <textarea class="form-control g-color-gray-dark-v5 g-bg-white g-bg-white--focus g-brd-primary--focus g-brd-gray-light-v4 g-resize-none rounded-3 g-py-13 g-px-15" rows="7"></textarea>
+                    </div>
+
+                    <button class="btn btn-lg u-btn-primary g-font-weight-600 g-font-size-default rounded-3 text-uppercase g-py-15 g-px-30" type="submit" role="button">Senden</button>
+                </form>
+                <!-- End Contact Form -->
+            </div>
+
+           {# <div class="col-lg-4 g-mb-60">
+                <!-- Google Map -->
+                <div id="GMapCustomized-light" class="js-g-map embed-responsive embed-responsive-21by9 g-height-300" data-type="custom" data-lat="52.13356" data-lng="7.55142" data-zoom="12" data-title="Holzwerkerei 67" data-styles='[["", "", [{"saturation":-20},{"lightness":20},{"visibility":"simplified"}]], ["", "labels", [{"visibility":"on"}]], ["water", "", [{"color":"#bac6cb"}]] ]'
+                     data-pin="true" data-pin-icon="../../assets/img/icons/pin/green.png">
+                </div>
+                <!-- End Google Map -->
+            </div>#}
+        </div>
+    </section>
 {% endblock %}
