@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+{% set workshops = getWorkshops(3) %}
+{% block content %}
+    <!-- Breadcrumbs -->
+    <section class="g-bg-primary g-color-white g-py-50 g-mb-20">
+        <div class="container g-bg-cover__inner">
+            <header class="g-mb-20">
+                <h2 class="h1 g-font-weight-300 text-uppercase">
+                    Workshops
+                </h2>
+            </header>
+
+            {% include 'common/breadcrumb.html.twig' %}
+        </div>
+    </section>
+    <section class="g-py-100">
+        <div class="container">
+            {% for row in workshops.rows %}
+                <div class="row g-mb-30">
+                    {% for workshop in row %}
+                        <div class="col-lg-4 g-mb-30 g-mb-0--lg">
+                            <!-- Workshop -->
+                            <article class="u-shadow-v11 rounded g-pa-25">
+                                <h2 class="h4 g-mb-15">
+                                    <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" href="#">
+                                        {{ workshop.title }}
+                                    </a>
+                                </h2>
+
+                                <ul class="list-inline d-flex justify-content-between g-mb-15">
+                                    <li class="list-inline-item">
+                                        Schwierigkeit : <span class="js-rating d-block g-color-secondary" data-rating="{{ workshop.difficulty }}"></span>
+                                    </li>
+                                </ul>
+
+                                <p class="g-mb-15">
+                                    {{ workshop.text2 }}
+                                </p>
+
+                                <ul class="list-unstyled">
+                                    <li class="media g-mb-10">
+                                            <span class="d-block g-color-gray-dark-v5 g-width-110">
+                                                <i class="icon-wallet g-pos-rel g-top-1 g-mr-5"></i> Preis:
+                                            </span>
+                                        <span class="media-body">
+                                                {% if workshop.is_price_set %}
+                                                    {{ workshop.price }} Eur
+                                                {% else %}
+                                                    Frei
+                                                {% endif %}
+                                            </span>
+                                    </li>
+                                    <li class="media g-mb-10">
+                                            <span class="d-block g-color-gray-dark-v5 g-width-110">
+                                                <i class="icon-calendar g-pos-rel g-top-1 g-mr-5"></i> Datum:
+                                            </span>
+                                        <span class="media-body">
+                                                {% if workshop.is_date_set %}
+                                                    {{ workshop.date }}
+                                                {% else %}
+                                                    Auf Anfrage
+                                                {% endif %}
+                                            </span>
+                                    </li>
+                                    <li class="media g-mb-10">
+                                            <span class="d-block g-color-gray-dark-v5 g-width-110">
+                                                <i class="icon-wallet g-pos-rel g-top-1 g-mr-5"></i> Dauer:
+                                            </span>
+                                        <span class="media-body">
+                                                {{ workshop.duration_value }} {% for type in workshop.duration_type %}{{ type.title }}{% endfor %}
+                                            </span>
+                                    </li>
+                                    <li class="media">
+                                            <span class="d-block g-color-gray-dark-v5 g-width-110">
+                                                <i class="icon-location-pin g-pos-rel g-top-1 g-mr-5"></i> Ort:
+                                            </span>
+                                        <span class="media-body">Reckenfeld</span>
+                                    </li>
+                                </ul>
+
+                                <hr class="g-brd-gray-light-v4">
+
+                                <ul class="list-inline d-flex justify-content-between mb-0">
+                                    <li class="list-inline-item">
+                                        <a class="btn u-btn-salmon rounded g-py-3 g-px-8" href="{{ workshop.url }}">
+                                            Mehr
+                                        </a>
+                                    </li>
+                                </ul>
+                            </article>
+                            <!-- End Worshop -->
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- End Breadcrumbs -->
+{% endblock %}

@@ -40,6 +40,11 @@ class AppController extends AbstractController
         ]);
     }
 
+    public function workshops()
+    {
+        echo $this->render('@content/workshops.html.twig', []);
+    }
+
     public function index()
     {
         $blocksViews = $this->getBlocksViews();
