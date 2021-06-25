@@ -45,6 +45,15 @@ class AppController extends AbstractController
         echo $this->render('@content/workshops.html.twig', []);
     }
 
+    public function aboutMe()
+    {
+        $blocksViews = $this->getBlocksViews();
+
+        echo $this->render('@content/about-me.html.twig', [
+            'blocks' => $blocksViews
+        ]);
+    }
+
     public function contact()
     {
         echo $this->render('@content/contact.html.twig', []);
