@@ -5,4 +5,4 @@ namespace ProcessWire;
 use App\Controller\AppController;
 
 $app = new AppController();
-$app->index();
+$app->contact();
