@@ -22,7 +22,7 @@ class AppController extends AbstractController
     public function home()
     {
         $blocksViews = $this->getBlocksViews();
-        $teaser = $this->render('@partials/home.html.twig', [
+        $teaser = $this->render('@partials/home_teaser.html.twig', [
             'teaserTitle' => $this->page()->get('title2'),
             'teaserTitle2' => $this->page()->get('title3')
         ]);
