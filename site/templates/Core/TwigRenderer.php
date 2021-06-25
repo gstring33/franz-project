@@ -63,12 +63,11 @@ class TwigRenderer
             new TwigFunction('getCategories', function($templateName) {
                 return $this->wire->pages->find('template=' . $templateName . ',status=hidden');
             }),
-            new TwigFunction('getWorkshops', function($totalPerRow = null) {
-                $results = $this->wire->pages->get('template=workshops')->children('template=workshop');
-                if ($totalPerRow === null) {
-                    return $results;
-                }
-
+            new TwigFunction('getWorkshopsRows', function($overview=false) {
+                $totalPerRow = 3;
+                $results = $overview ?
+                    $this->wire->pages->get('template=workshops')->children('template=workshop,limit=3') :
+                    $this->wire->pages->get('template=workshops')->children('template=workshop');
                 $rowIndex = 1;
                 $rows = [];
                 foreach ($results as $workshop) {

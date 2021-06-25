@@ -1,4 +1,4 @@
-{% set workshops = getWorkshops(3) %}
+{% set workshops = getWorkshopsRows(true) %}
 
 {% if workshops.total > 0 %}
     {% for content in block %}
