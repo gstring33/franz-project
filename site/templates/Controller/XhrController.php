@@ -8,6 +8,6 @@ class XhrController extends AbstractController
 {
     public function contact()
     {
-
+        return json_encode(['status' => 'succes' ]);
     }
 }
