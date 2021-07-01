@@ -41,6 +41,12 @@ class SanitizerServices
                     return $this->registerError('message', self::ERROR_FORMAT);
                 }
 
+                return [
+                    'email' => $sanitizedEmail,
+                    'message' => $sanitizedMessage,
+                    'name' => $sanitizedName
+                ];
+
             } else {
                 throw new WireException('The contact can not be stored because a field is missing');
             }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\AbstractController;
+use App\Services\PHPMailerServices;
 use App\Services\SanitizerServices;
 use ProcessWire\WireInput;
 
@@ -26,5 +27,21 @@ class XhrController extends AbstractController
             return json_encode($sanitizedData);
         }
 
+        // Send Email if prod
+        if ($this->isProd()) {
+            $emailContent = $this->render('@email/contact.html.twig', [
+                'contactMessage' => $sanitizedData['message'],
+                'contactEmail' => $sanitizedData['email'],
+                'contactName' => $sanitizedData['name']
+            ]);
+
+            $mailer = new PHPMailerServices();
+            $mailer->send('martindhenu@yahoo.fr', 'Neuer Kontakt', $emailContent);
+        }
+
+        return json_encode([
+            'status' => 'success',
+            'message' => 'Ihre Nachricht wurde erfolgreich gesendet. Ich werde Ihnen direkt an die angegebene E-Mail-Adresse antworten'
+        ]);
     }
 }
