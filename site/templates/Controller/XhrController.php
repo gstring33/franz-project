@@ -41,7 +41,7 @@ class XhrController extends AbstractController
 
         return json_encode([
             'status' => 'success',
-            'message' => 'Ihre Nachricht wurde erfolgreich gesendet. Ich werde Ihnen direkt an die angegebene E-Mail-Adresse antworten'
+            'message' => 'Ich werde Ihnen direkt an die angegebene E-Mail-Adresse antworten'
         ]);
     }
 }
