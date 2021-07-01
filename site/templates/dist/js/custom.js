@@ -1,9 +1,19 @@
 (function($) {
-    let contactBtn = $('#send-contact-btn')
-    contactBtn.on('click', (e) => {
+    let contactForm = $('#fr-contact-form')
+    contactForm.on('submit', (e) => {
         e.preventDefault()
-        fetch('http://franz-atelier.local/xhr/contact')
-            .then(response => response.json())
-            .then(data => console.log(data));
+        const formData = {
+            name: $('#fr-contact-name').val(),
+            email: $('#fr-contact-email').val(),
+            message: $('#fr-contact-message').val(),
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/xhr/contact',
+            data: formData,
+            dataType: 'application/json'
+        }).done((data) => {
+           console.log(data)
+        })
     })
 })(jQuery)
