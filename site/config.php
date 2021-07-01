@@ -56,7 +56,6 @@ $config->useFunctionsAPI = true;
 
 /**
  * Installer: Database Configuration
- * 
  */
 $config->dbHost = $_ENV['DB_HOST'];
 $config->dbName = $_ENV['DB_NAME'];
@@ -64,6 +63,17 @@ $config->dbUser = $_ENV['DB_USER'];
 $config->dbPass = $_ENV['DB_PASSWORD'];
 $config->dbPort = $_ENV['DB_PORT'];
 $config->dbEngine = $_ENV['DB_ENGINE'];
+
+/**
+ * PHPMailer
+ */
+
+$config->mailerFrom = $_ENV['MAILER_FROM'];
+$config->mailerHost = $_ENV['MAILER_HOST'];
+$config->mailerPort = $_ENV['MAILER_PORT'];
+$config->mailerUsername = $_ENV['MAILER_USERNAME'];
+$config->mailerPassword = $_ENV['MAILER_PASSWORD'];
+$config->mailerDebugMode = $_ENV['MAILER_DEBUG_MODE'];
 
 /**
  * Environement
