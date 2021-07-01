@@ -165,7 +165,8 @@ $config->twigDebug = $_ENV['APP_ENV'] === 'dev' ? true : false;
 $config->twigTemplateNamespaces = [
     'content' => $config->twigTemplates . '/content',
     'blocks' => $config->twigTemplates . '/blocks',
-    'partials' => $config->twigTemplates . '/partials'
+    'partials' => $config->twigTemplates . '/partials',
+    'email' => $config->twigTemplates . '/email'
 ];
 
 
