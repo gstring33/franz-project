@@ -22,7 +22,13 @@ class XhrController extends AbstractController
             return json_encode([]);
         }
 
-        $sanitizedData = $this->securityServices->sanitizeContactData($request->post()->getArray());
+        $data = $request->post()->getArray();
+
+        if ($this->securityServices->isSpam($data)) {
+            return json_encode([]);
+        }
+
+        $sanitizedData = $this->securityServices->sanitizeContactData($data);
         if (isset($sanitizedData['errors'])) {
             return json_encode([
                 'status' => SecurityServices::ERROR_STATUS,
