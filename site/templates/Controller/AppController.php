@@ -56,7 +56,9 @@ class AppController extends AbstractController
 
     public function contact()
     {
-        echo $this->render('@content/contact.html.twig', []);
+        echo $this->render('@content/contact.html.twig', [
+            'content' => $this->page()
+        ]);
     }
 
     // ----- PRIVATE METHOD ----- //
