@@ -5,7 +5,7 @@ namespace App\Services;
 use ProcessWire\ProcessWire;
 use ProcessWire\WireException;
 
-class SanitizerServices
+class SecurityServices
 {
     private $sanitizer;
 

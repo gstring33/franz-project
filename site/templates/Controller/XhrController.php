@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Core\AbstractController;
 use App\Services\PHPMailerServices;
-use App\Services\SanitizerServices;
+use App\Services\SecurityServices;
 use ProcessWire\WireInput;
 
 class XhrController extends AbstractController
@@ -13,7 +13,7 @@ class XhrController extends AbstractController
 
     public function __construct()
     {
-        $this->sanitizerServices = new SanitizerServices();
+        $this->securityServices = new SecurityServices();
     }
 
     public function contact(WireInput $request)
@@ -22,10 +22,10 @@ class XhrController extends AbstractController
             return json_encode([]);
         }
 
-        $sanitizedData = $this->sanitizerServices->sanitizeContactData($request->post()->getArray());
+        $sanitizedData = $this->securityServices->sanitizeContactData($request->post()->getArray());
         if (isset($sanitizedData['errors'])) {
             return json_encode([
-                'status' => SanitizerServices::ERROR_STATUS,
+                'status' => SecurityServices::ERROR_STATUS,
                 'errors' => $sanitizedData['errors']
             ]);
         }
@@ -43,7 +43,7 @@ class XhrController extends AbstractController
         }
 
         return json_encode([
-            'status' => SanitizerServices::SUCCESS_STATUS,
+            'status' => SecurityServices::SUCCESS_STATUS,
             'message' => 'Ich werde Ihnen direkt an die angegebene E-Mail-Adresse antworten'
         ]);
     }
