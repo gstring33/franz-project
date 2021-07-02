@@ -11,9 +11,11 @@ class SanitizerServices
 
     private $log;
 
-    private $error = [];
+    private $errors = [];
 
     const ERROR_FORMAT = 'Das eingegebene Format ist nicht korrekt';
+    const ERROR_STATUS = 'error';
+    const SUCCESS_STATUS = 'success';
 
     public function __construct()
     {
@@ -28,17 +30,21 @@ class SanitizerServices
             if (isset($data['name']) && isset($data['email']) && isset($data['message'])) {
                 $sanitizedName = $this->sanitizer->text($data['name']);
                 if (!$sanitizedName) {
-                    return $this->registerError('name', self::ERROR_FORMAT);
+                    $this->registerError('name', self::ERROR_FORMAT);
                 }
 
                 $sanitizedEmail = $this->sanitizer->email($data['email']);
                 if (!$sanitizedEmail) {
-                    return $this->registerError('email', self::ERROR_FORMAT);
+                    $this->registerError('email', self::ERROR_FORMAT);
                 }
 
                 $sanitizedMessage = $this->sanitizer->text($data['message']);
                 if (!$sanitizedMessage) {
-                    return $this->registerError('message', self::ERROR_FORMAT);
+                    $this->registerError('message', self::ERROR_FORMAT);
+                }
+
+                if (isset($this->errors['errors']) && count($this->errors['errors']) > 0) {
+                    return $this->errors;
                 }
 
                 return [
@@ -56,11 +62,9 @@ class SanitizerServices
     }
 
     private function registerError(string $field, string $message) {
-        $this->error['error'] = [
+        $this->errors['errors'][] = [
             'field' => $field,
             'message' => $message
         ];
-
-        return $this->error;
     }
 }

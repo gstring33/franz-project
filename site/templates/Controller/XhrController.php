@@ -23,8 +23,11 @@ class XhrController extends AbstractController
         }
 
         $sanitizedData = $this->sanitizerServices->sanitizeContactData($request->post()->getArray());
-        if (isset($sanitizedData['error'])) {
-            return json_encode($sanitizedData);
+        if (isset($sanitizedData['errors'])) {
+            return json_encode([
+                'status' => SanitizerServices::ERROR_STATUS,
+                'errors' => $sanitizedData['errors']
+            ]);
         }
 
         // Send Email if prod
@@ -40,7 +43,7 @@ class XhrController extends AbstractController
         }
 
         return json_encode([
-            'status' => 'success',
+            'status' => SanitizerServices::SUCCESS_STATUS,
             'message' => 'Ich werde Ihnen direkt an die angegebene E-Mail-Adresse antworten'
         ]);
     }
