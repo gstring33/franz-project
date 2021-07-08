@@ -36,6 +36,14 @@ class XhrController extends AbstractController
             ]);
         }
 
+        $isRecaptchaValid = $this->securityServices->isRecaptchaValid($data['token']);
+        if (isset($isRecaptchaValid['errors'])) {
+            return json_encode([
+                'status' => SecurityServices::ERROR_STATUS,
+                'errors' => $isRecaptchaValid['errors']
+            ]);
+        }
+
         // Send Email if prod
         if ($this->isProd()) {
             $emailContent = $this->render('@email/contact.html.twig', [

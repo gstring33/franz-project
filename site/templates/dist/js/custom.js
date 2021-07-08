@@ -15,6 +15,7 @@
         if (isSpam(formData)) {
             return
         } else {
+            formData.token = grecaptcha.getResponse()
             $.ajax({
                 method: 'POST',
                 url: '/xhr/contact',
@@ -38,13 +39,18 @@
                     } else if (response.status === 'error') {
                         response.errors.forEach((error) => {
                             const field = error.field
-                            const input = $('#fr-contact-' + field )
-                            input.addClass('form-control-danger').removeClass('g-brd-gray-light-v4')
-                            $('#fr-contact-feedback-' + field).text(error.message)
-                            input.parent('.form-group').addClass('has-danger')
+                            if (error.field === 'recaptcha') {
+                                $('#fr-contact-feedback-' + field).text(error.message)
+                            } else {
+                                const input = $('#fr-contact-' + field )
+                                input.addClass('form-control-danger').removeClass('g-brd-gray-light-v4')
+                                $('#fr-contact-feedback-' + field).text(error.message)
+                                input.parent('.form-group').addClass('has-danger')
+                            }
                         })
                     }
                 })
+
         }
     })
 
@@ -55,6 +61,7 @@
             $(this).parent('.form-group').removeClass('has-danger')
             $(this).next('.form-control-feedback').empty()
         })
+        $('#fr-contact-feedback-recaptcha').empty()
     }
 
     const isSpam = (fields) => {

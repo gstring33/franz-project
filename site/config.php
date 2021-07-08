@@ -86,6 +86,13 @@ function isDevEnvironment() {
 $config->isDevEnvironment = isDevEnvironment();
 
 /**
+ * Google recaptcha
+ */
+$config->recaptchaPublicKey = $_ENV['RECAPTCHA_PUBLIC_KEY'];
+$config->recaptchaPrivateKey = $_ENV['RECAPTCHA_PRIVATE_KEY'];
+$config->recaptchaUrlVerification = 'https://www.google.com/recaptcha/api/siteverify';
+
+/**
  * Installer: User Authentication Salt 
  * 
  * This value was randomly generated for your system on 2021/03/14.

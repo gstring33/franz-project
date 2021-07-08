@@ -11,9 +11,13 @@ class SecurityServices
 
     private $log;
 
+    private $config;
+
     private $errors = [];
 
     const ERROR_FORMAT = 'Das eingegebene Format ist nicht korrekt';
+    const ERROR_RECAPTCHA_IS_MISSING = 'Bitte bestätigen Sie das Recaptcha';
+    const ERROR_RECAPTCHA_FAILED = 'Ein Fehler wurde aufgetreten. Versuchen Sie bitte das Formular noch mal zu senden';
     const ERROR_STATUS = 'error';
     const SUCCESS_STATUS = 'success';
 
@@ -21,6 +25,7 @@ class SecurityServices
     {
         $wire = ProcessWire::getCurrentInstance();
         $this->sanitizer = $wire->sanitizer;
+        $this->config = $wire->config;
         $this->log = $wire->log;
     }
 
@@ -77,6 +82,23 @@ class SecurityServices
     public function isSpam(array $fields): bool
     {
         return ($fields['pdm_name'] !== '' || $fields['pdm_email'] !== '');
+    }
+
+    public function isRecaptchaValid(?string $token): array
+    {
+        if (!$token) {
+            $this->registerError('recaptcha', self::ERROR_RECAPTCHA_IS_MISSING);
+            return $this->errors;
+        }
+        $verifyUrl = "{$this->config->recaptchaUrlVerification}?secret={$this->config->recaptchaPrivateKey}&response={$token}";
+        $response = json_decode(file_get_contents($verifyUrl));
+
+        if ($response->success != true) {
+            $this->registerError('recaptcha', self::ERROR_RECAPTCHA_FAILED);
+            return $this->errors;
+        }
+
+        return  [];
     }
 
     /**

@@ -9,3 +9,9 @@
     z-index: -1;
   }
 }
+
+.form-control {
+  &-feedback {
+    color: #d9534f;
+  }
+}
