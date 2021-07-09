@@ -53,11 +53,6 @@ class AbstractController
         return $this->wire->config;
     }
 
-    public function isProd()
-    {
-        return $this->wire->config->env === 'prod';
-    }
-
     /**
      * @param string $view
      * @param array $params

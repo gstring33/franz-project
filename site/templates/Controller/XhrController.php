@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
-use App\Core\AbstractController;
+use App\Core\TwigRenderer;
 use App\Services\PHPMailerServices;
 use App\Services\SecurityServices;
+use ProcessWire\ProcessWire;
 use ProcessWire\WireInput;
 
-class XhrController extends AbstractController
+class XhrController
 {
-    private $sanitizerServices;
+    private $securityServices;
+
+    private $wire;
+
+    private $twig;
 
     public function __construct()
     {
         $this->securityServices = new SecurityServices();
+        $this->wire = ProcessWire::getCurrentInstance();
+        $this->twig = new TwigRenderer();
     }
 
     public function contact(WireInput $request)
@@ -21,7 +28,6 @@ class XhrController extends AbstractController
         if ($request->requestMethod() !== 'POST') {
             return json_encode([]);
         }
-
         $data = $request->post()->getArray();
 
         if ($this->securityServices->isSpam($data)) {
@@ -44,8 +50,7 @@ class XhrController extends AbstractController
             ]);
         }
 
-        // Send Email if prod
-        if ($this->isProd()) {
+        if ($this->wire->config->env === 'prod') {
             $emailContent = $this->render('@email/contact.html.twig', [
                 'contactMessage' => $sanitizedData['message'],
                 'contactEmail' => $sanitizedData['email'],

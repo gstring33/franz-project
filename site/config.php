@@ -76,7 +76,7 @@ $config->mailerPassword = $_ENV['MAILER_PASSWORD'];
 $config->mailerDebugMode = $_ENV['MAILER_DEBUG_MODE'];
 
 /**
- * Environement
+ * Environment
  */
 $config->env = $_ENV['APP_ENV'];
 
