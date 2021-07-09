@@ -58,7 +58,13 @@ class XhrController
             ]);
 
             $mailer = new PHPMailerServices();
-            $mailer->send('martindhenu@yahoo.fr', "Neues Kontakt von Holzwerkerei67.de" , $emailContent);
+            $isMessageSent = $mailer->send('martindhenu@yahoo.fr', "Neues Kontakt von Holzwerkerei67.de" , $emailContent);
+            if (isset($isMessageSent['errors'])) {
+                return json_encode([
+                    'status' => SecurityServices::ERROR_STATUS,
+                    'errors' => $isMessageSent['errors']
+                ]);
+            }
         }
 
         return json_encode([

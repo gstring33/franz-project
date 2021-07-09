@@ -25,7 +25,7 @@
             })
                 .done((response) => {
                     if (response.status === 'success') {
-                        $('#fr-contact-form').hide()
+                        contactForm.hide()
                         const successAlert = '<div class="alert alert-success alert-dismissible fade show g-mb-40" role="alert" id="contact-alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                             '<span aria-hidden="true">×</span>' +
@@ -46,6 +46,18 @@
                             const field = error.field
                             if (error.field === 'recaptcha') {
                                 $('#fr-contact-feedback-' + field).text(error.message)
+                            } else if (error.field === 'interne') {
+                                contactForm.hide()
+                                const errorAlert = '<div class="alert alert-danger alert-dismissible fade show g-mb-40" role="alert" id="contact-alert-error">' +
+                                    error.message +
+                                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                    '<span aria-hidden="true">×</span>' +
+                                    ' </button>' +
+                                    '</div>'
+                                $(errorAlert).insertBefore(contactForm)
+                                $('#contact-alert-error').on('closed.bs.alert', function() {
+                                    location.reload()
+                                })
                             } else {
                                 const input = $('#fr-contact-' + field )
                                 input.addClass('form-control-danger').removeClass('g-brd-gray-light-v4')
@@ -74,10 +86,16 @@
     }
 
     const submitLoadBtn = function () {
-        $('#btn-contact-submit').empty().html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> LOADING')
+        $('#btn-contact-submit')
+            .attr("disabled",true)
+            .empty()
+            .html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> LOADING')
     }
 
     const submitSendBtn = function () {
-        $('#btn-contact-submit').empty().text('SENDEN')
+        $('#btn-contact-submit')
+            .removeAttr("disabled")
+            .empty()
+            .text('SENDEN')
     }
 })(jQuery)

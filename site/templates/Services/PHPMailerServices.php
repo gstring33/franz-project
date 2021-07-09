@@ -32,6 +32,8 @@ class PHPMailerServices
     /** @var  */
     private $logger;
 
+    private $errors = [];
+
     /**
      * MailerService constructor.
      * @param string $from
@@ -70,12 +72,23 @@ class PHPMailerServices
                 ->initContent($subject, $body);
 
             if ($this->mailer->send()) {
-                return;
+                return [];
             } else {
                 $this->logger->error("Email could not be sent. Subject: {$subject} Mailer Error: {$this->mailer->ErrorInfo}");
+                $this->errors['errors'][] = [
+                    'field' =>'interne',
+                    'message' =>'Ihre Nachricht kann momentan nicht gesendet werden. Bitte versuchen Sie noch mal später'
+                ];
+                return $this->errors;
+
             }
         }catch (\Exception $exception) {
             $this->logger->error("Email could not be sent. Subject: {$subject} Mailer Error: {$this->mailer->ErrorInfo}");
+            $this->errors['errors'][] = [
+                'field' =>'interne',
+                'message' =>'Ihre Nachricht kann momentan nicht gesendet werden. Bitte versuchen Sie noch mal später'
+            ];
+            return $this->errors;
         }
     }
 
