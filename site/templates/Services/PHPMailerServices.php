@@ -55,10 +55,10 @@ class PHPMailerServices
      * @param string $body
      * @return void
      */
-    public function send(array $addresses, string $subject, string $body)
+    public function send(string $address, string $subject, string $body)
     {
         $this->initServer($this->host, $this->username, $this->password, $this->port)
-            ->initRecipient($this->from, 'Holzwerkerei 67', $addresses)
+            ->initRecipient($this->from, 'Holzwerkerei 64', $address)
             ->initContent($subject, $body);
 
         try {
@@ -106,13 +106,11 @@ class PHPMailerServices
      * @param string|null $bcc
      * @return PHPMailerServices
      */
-    private function initRecipient(string $from, string $name, array $adresses, ?string $replyTo = null, ?string $cc = null, ?string $bcc =null)
+    private function initRecipient(string $from, string $name, string $address, ?string $replyTo = null, ?string $cc = null, ?string $bcc =null)
     {
         try {
             $this->mailer->setFrom($from, $name);
-            foreach ($adresses as $adress) {
-                $this->mailer->addAddress($adress[0], $adress[1]);
-            }
+            $this->mailer->addAddress($address);
             if ($replyTo !== null) {
                 $this->mailer->addReplyTo('info@example.com', 'Information');
             }

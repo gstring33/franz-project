@@ -58,7 +58,7 @@ class XhrController
             ]);
 
             $mailer = new PHPMailerServices();
-            $mailer->send(['martindhenu@yahoo.fr'], 'Neuer Kontakt', $emailContent);
+            $mailer->send('martindhenu@yahoo.fr', 'Neuer Kontakt', $emailContent);
         }
 
         return json_encode([
