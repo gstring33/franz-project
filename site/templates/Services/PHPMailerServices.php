@@ -44,8 +44,8 @@ class PHPMailerServices
         $this->host = $wire->config->mailerHost;
         $this->port = $wire->config->mailerPort;
         $this->username = $wire->config->mailerUsername;
-        $this->password = base64_decode($wire->config->mailerPassword);
-        $this->debug_mode = $wire->config->mailerDebugMode;
+        $this->password = $wire->config->mailerPassword;
+        $this->debug_mode = intval($wire->config->mailerDebugMode);
         $this->logger = $wire->log;
     }
 
@@ -57,13 +57,17 @@ class PHPMailerServices
      */
     public function send(string $address, string $subject, string $body)
     {
-        $this->initServer($this->host, $this->username, $this->password, $this->port)
-            ->initRecipient($this->from, 'Holzwerkerei 64', $address)
-            ->initContent($subject, $body);
-
         try {
-            $this->mailer->send();
-        }catch (Exception $e) {
+            $this->initServer($this->host, $this->username, $this->password, $this->port)
+                ->initRecipient($this->from, 'Holzwerkerei 67', $address)
+                ->initContent($subject, $body);
+
+            if ($this->mailer->send()) {
+                return;
+            } else {
+                $this->logger->error("Email could not be sent. Subject: {$subject} Mailer Error: {$this->mailer->ErrorInfo}");
+            }
+        }catch (\Exception $exception) {
             $this->logger->error("Email could not be sent. Subject: {$subject} Mailer Error: {$this->mailer->ErrorInfo}");
         }
     }
@@ -152,7 +156,7 @@ class PHPMailerServices
     {
         try {
             $this->mailer->isHTML(true);
-            $this->mailer->Subject = "Neues Kontakt von Holzwerkerei 64 - " . $subject;
+            $this->mailer->Subject = "Neues Kontakt von Holzwerkerei67.de - " . $subject;
             $this->mailer->Body    = $html;
             //$this->mailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
         }catch (Exception $e) {
