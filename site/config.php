@@ -71,6 +71,7 @@ $config->dbEngine = $_ENV['DB_ENGINE'];
 $config->mailerFrom = $_ENV['MAILER_FROM'];
 $config->mailerHost = $_ENV['MAILER_HOST'];
 $config->mailerPort = $_ENV['MAILER_PORT'];
+$config->mailerName = $_ENV['MAILER_NAME'];
 $config->mailerUsername = $_ENV['MAILER_USERNAME'];
 $config->mailerPassword = $_ENV['MAILER_PASSWORD'];
 $config->mailerDebugMode = $_ENV['MAILER_DEBUG_MODE'];

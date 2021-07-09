@@ -23,6 +23,8 @@ class PHPMailerServices
     private $username;
     /** @var string */
     private $password;
+    /** @var string */
+    private $name;
     /** @var int */
     private $debug_mode;
     /** @var  */
@@ -45,6 +47,7 @@ class PHPMailerServices
         $this->port = $wire->config->mailerPort;
         $this->username = $wire->config->mailerUsername;
         $this->password = $wire->config->mailerPassword;
+        $this->name = $wire->config->mailerName;
         $this->debug_mode = intval($wire->config->mailerDebugMode);
         $this->logger = $wire->log;
     }
@@ -59,7 +62,7 @@ class PHPMailerServices
     {
         try {
             $this->initServer($this->host, $this->username, $this->password, $this->port)
-                ->initRecipient($this->from, 'Holzwerkerei 67', $address)
+                ->initRecipient($this->from, $this->name, $address)
                 ->initContent($subject, $body);
 
             if ($this->mailer->send()) {
