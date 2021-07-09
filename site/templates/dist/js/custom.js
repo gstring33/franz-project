@@ -26,7 +26,7 @@
                 .done((response) => {
                     if (response.status === 'success') {
                         $('#fr-contact-form').hide()
-                        const successAlert = '<div class="alert alert-success alert-dismissible fade show g-mb-40" role="alert">' +
+                        const successAlert = '<div class="alert alert-success alert-dismissible fade show g-mb-40" role="alert" id="contact-alert-success">' +
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                             '<span aria-hidden="true">×</span>' +
                             ' </button>' +
@@ -37,6 +37,9 @@
                             response.message +
                             '</div>'
                         $(successAlert).insertBefore(contactForm)
+                        $('#contact-alert-success').on('closed.bs.alert', function() {
+                            location.reload()
+                        })
                     } else if (response.status === 'error') {
                         submitSendBtn()
                         response.errors.forEach((error) => {
