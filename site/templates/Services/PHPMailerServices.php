@@ -156,7 +156,7 @@ class PHPMailerServices
     {
         try {
             $this->mailer->isHTML(true);
-            $this->mailer->Subject = "Neues Kontakt von Holzwerkerei67.de - " . $subject;
+            $this->mailer->Subject = $subject;
             $this->mailer->Body    = $html;
             //$this->mailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
         }catch (Exception $e) {
