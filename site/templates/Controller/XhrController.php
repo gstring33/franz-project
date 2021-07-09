@@ -51,7 +51,7 @@ class XhrController
         }
 
         if ($this->wire->config->env === 'prod') {
-            $emailContent = $this->render('@email/contact.html.twig', [
+            $emailContent = $this->twig->render('@email/contact.html.twig', [
                 'contactMessage' => $sanitizedData['message'],
                 'contactEmail' => $sanitizedData['email'],
                 'contactName' => $sanitizedData['name']
