@@ -15,6 +15,7 @@
         if (isSpam(formData)) {
             return
         } else {
+            submitLoadBtn()
             formData.token = grecaptcha.getResponse()
             $.ajax({
                 method: 'POST',
@@ -24,7 +25,7 @@
             })
                 .done((response) => {
                     if (response.status === 'success') {
-                        document.querySelector('#fr-contact-form').reset()
+                        $('#fr-contact-form').hide()
                         const successAlert = '<div class="alert alert-success alert-dismissible fade show g-mb-40" role="alert">' +
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                             '<span aria-hidden="true">×</span>' +
@@ -37,6 +38,7 @@
                             '</div>'
                         $(successAlert).insertBefore(contactForm)
                     } else if (response.status === 'error') {
+                        submitSendBtn()
                         response.errors.forEach((error) => {
                             const field = error.field
                             if (error.field === 'recaptcha') {
@@ -66,5 +68,13 @@
 
     const isSpam = (fields) => {
         return (fields.pdm_name !== "" || fields.pdm_email !== "")
+    }
+
+    const submitLoadBtn = function () {
+        $('#btn-contact-submit').empty().html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span> LOADING')
+    }
+
+    const submitSendBtn = function () {
+        $('#btn-contact-submit').empty().text('SENDEN')
     }
 })(jQuery)
