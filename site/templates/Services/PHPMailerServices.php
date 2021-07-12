@@ -25,8 +25,6 @@ class PHPMailerServices
     private $password;
     /** @var string */
     private $name;
-    /** @var string */
-    private $emailDest;
     /** @var int */
     private $debug_mode;
     /** @var  */
@@ -45,7 +43,6 @@ class PHPMailerServices
      */
     public function __construct() {
         $wire = ProcessWire::getCurrentInstance();
-        $confPage = $wire->pages->get('template=configuration');
         $this->mailer= new PHPMailer();
         $this->from = $wire->config->mailerFrom;
         $this->host = $wire->config->mailerHost;
@@ -53,7 +50,6 @@ class PHPMailerServices
         $this->username = $wire->config->mailerUsername;
         $this->password = $wire->config->mailerPassword;
         $this->name = $wire->config->mailerName;
-        $this->emailDest = $confPage->user_email->email;
         $this->debug_mode = intval($wire->config->mailerDebugMode);
         $this->logger = $wire->log;
     }
