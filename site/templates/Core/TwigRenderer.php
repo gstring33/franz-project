@@ -94,6 +94,16 @@ class TwigRenderer
 
                 return $navigation;
             }),
+            new TwigFunction('getFooter', function() {
+                $footerConf = $this->wire->pages->get('template=footer');
+                $services = $this->wire->pages->get('template=home')->children('display_in_footer=1');
+                $footer = [
+                    'aboutMe' => $footerConf->text,
+                    'services' => $services
+                ];
+
+                return $footer;
+            }),
             new TwigFunction('getBreadcrumb', function() {
                 $items = explode('/', $this->wire->page->url);
                 $sanitizedItems = [
