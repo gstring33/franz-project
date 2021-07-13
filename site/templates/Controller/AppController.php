@@ -69,6 +69,13 @@ class AppController extends AbstractController
         ]);
     }
 
+    public function service()
+    {
+        echo $this->render('@content/service.html.twig', [
+            'service' => $this->page()
+        ]);
+    }
+
     // ----- PRIVATE METHOD ----- //
 
     /**
