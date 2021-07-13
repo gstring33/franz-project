@@ -62,6 +62,11 @@ class AppController extends AbstractController
         ]);
     }
 
+    public function faq()
+    {
+        echo $this->render('@content/faq.html.twig', []);
+    }
+
     // ----- PRIVATE METHOD ----- //
 
     /**
