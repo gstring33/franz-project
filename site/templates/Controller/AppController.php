@@ -29,7 +29,7 @@ class AppController extends AbstractController
         ]);
 
         echo $this->render('@content/home.html.twig', [
-            'title' => $page->title,
+            'seo' => $page->seo,
             'teaser' => $teaser,
             'blocks' => $blocksViews,
         ]);
@@ -39,7 +39,7 @@ class AppController extends AbstractController
     {
         $page = $this->page();
         echo $this->render('@content/workshop-single.html.twig', [
-            'title' => $page->title,
+            'seo' => $page->seo,
             'workshop' =>$page
         ]);
     }
@@ -48,16 +48,17 @@ class AppController extends AbstractController
     {
         $page = $this->page();
         echo $this->render('@content/workshops.html.twig', [
-            'title' => $page->title
+            'seo' => $page->seo
         ]);
     }
 
     public function aboutMe()
     {
         $blocksViews = $this->getBlocksViews();
-
+        $page = $this->page();
         echo $this->render('@content/about-me.html.twig', [
-            'title' => $this->page()->title,
+            'seo' => $page->seo,
+            'title' => $page->title,
             'blocks' => $blocksViews
         ]);
     }
@@ -66,7 +67,7 @@ class AppController extends AbstractController
     {
         $page = $this->page();
         echo $this->render('@content/contact.html.twig', [
-            'title' => $page->title,
+            'seo' => $page->seo,
             'content' => $page,
             'recaptchaPublicKey' => $this->config()->recaptchaPublicKey
         ]);
@@ -76,7 +77,7 @@ class AppController extends AbstractController
     {
         $page = $this->page();
         echo $this->render('@content/faq.html.twig', [
-            'title' => $page->title,
+            'seo' => $page->seo,
             'faq' => $page
         ]);
     }
@@ -85,7 +86,7 @@ class AppController extends AbstractController
     {
         $page = $this->page();
         echo $this->render('@content/service.html.twig', [
-            'title' => $page->title,
+            'seo' => $page->seo,
             'service' => $page
         ]);
     }

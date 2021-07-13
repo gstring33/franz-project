@@ -17,7 +17,8 @@
     "php": ">=7.1",
     "ext-gd": "*",
     "twig/twig": "^2.0",
-    "phpmailer/phpmailer": "^6.5"
+    "phpmailer/phpmailer": "^6.5",
+    "wanze/seo-maestro": "^1.1"
   },
   "autoload": {
     "files": [ "wire/core/ProcessWire.php" ]
