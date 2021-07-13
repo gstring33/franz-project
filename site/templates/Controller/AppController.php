@@ -64,7 +64,9 @@ class AppController extends AbstractController
 
     public function faq()
     {
-        echo $this->render('@content/faq.html.twig', []);
+        echo $this->render('@content/faq.html.twig', [
+            'faq' => $this->page()
+        ]);
     }
 
     // ----- PRIVATE METHOD ----- //
