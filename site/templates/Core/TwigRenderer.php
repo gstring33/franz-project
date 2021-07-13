@@ -96,10 +96,10 @@ class TwigRenderer
             }),
             new TwigFunction('getFooter', function() {
                 $footerConf = $this->wire->pages->get('template=footer');
-                $services = $this->wire->pages->get('template=home')->children('display_in_footer=1');
+                $usefullLinks = $this->wire->pages->get('template=home')->children('display_in_footer=1');
                 $footer = [
                     'aboutMe' => $footerConf->text,
-                    'services' => $services
+                    'usefullLinks' => $usefullLinks
                 ];
 
                 return $footer;
