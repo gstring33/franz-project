@@ -6,7 +6,6 @@
         <div class="container g-py-150">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="d-inline-block g-width-80 g-height-4 g-bg-black mb-3"></div>
                     <h2 class="g-color-black g-font-weight-700 g-font-size-50 g-line-height-1 mb-4">{{ service.title }}</h2>
                 </div>
             </div>
@@ -15,8 +14,8 @@
     <!-- End Promo Block -->
 
     <section class="container g-py-100">
-        <div class="g-mb-50">
-            {{ service.text }}
+        <div class="g-mb-50 service-container">
+            {{ service.text | raw }}
         </div>
     </section>
 {% endblock %}
