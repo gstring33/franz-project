@@ -1,69 +1,75 @@
 {% set footer = getFooter() %}
-<div class="container">
-    <div class="row">
-        <!-- Footer Content -->
-        <div class="col-lg-4 col-md-6 g-mb-40 g-mb-0--lg">
-            <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Über mich</h2>
+<div id="contacts-section" class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
+    <div class="container">
+        <div class="row">
+            <!-- Footer Content -->
+            <div class="col-lg-4 col-md-6 g-mb-40 g-mb-0--lg">
+                <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
+                    <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Über mich</h2>
+                </div>
+                <p{{ footer.aboutMe | raw }}</p>
             </div>
-            <p{{ footer.aboutMe | raw }}</p>
-        </div>
-        <!-- End Footer Content -->
+            <!-- End Footer Content -->
 
-        <!-- Footer Content -->
-        <div class="col-lg-4 col-md-6 g-mb-40 g-mb-0--lg">
-            <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Nützliche Links</h2>
+            <!-- Footer Content -->
+            <div class="col-lg-4 col-md-6 g-mb-40 g-mb-0--lg">
+                <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
+                    <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Nützliche Links</h2>
+                </div>
+
+                <nav class="text-uppercase1">
+                    <ul class="list-unstyled g-mt-minus-10 mb-0">
+                        {% for service in footer.services %}
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ service.url }}">{{ service.title }}</a>
+                                    <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
             </div>
+            <!-- End Footer Content -->
 
-            <nav class="text-uppercase1">
-                <ul class="list-unstyled g-mt-minus-10 mb-0">
-                    {% for service in footer.services %}
-                        <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                            <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="{{ service.url }}">{{ service.title }}</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                            </h4>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </nav>
-        </div>
-        <!-- End Footer Content -->
+            <!-- Footer Content -->
+            <div class="col-lg-4 col-md-6">
+                <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
+                    <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Kontakt</h2>
+                </div>
 
-        <!-- Footer Content -->
-        <div class="col-lg-4 col-md-6">
-            <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Kontakt</h2>
-            </div>
-
-            <address class="g-bg-no-repeat g-font-size-12 mb-0"
-                     style="background-image: url(../../assets/img/maps/map2.png);">
-                <!-- Location -->
-                <div class="d-flex g-mb-20">
-                    <div class="g-mr-10">
+                <address class="g-bg-no-repeat g-font-size-12 mb-0"
+                         style="background-image: url(../../assets/img/maps/map2.png);">
+                    <!-- Location -->
+                    <div class="d-flex g-mb-20">
+                        <div class="g-mr-10">
                         <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6">
                             <i class="fa fa-map-marker"></i>
                         </span>
+                        </div>
+                        <p class="mb-0">Reckenfeld</p>
                     </div>
-                    <p class="mb-0">Reckenfeld</p>
-                </div>
-                <!-- End Location -->
+                    <!-- End Location -->
 
-                <!-- Email and Website -->
-                <div class="d-flex g-mb-20">
-                    <div class="g-mr-10">
+                    <!-- Email and Website -->
+                    <div class="d-flex g-mb-20">
+                        <div class="g-mr-10">
                         <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6">
                             <i class="fa fa-globe"></i>
                         </span>
+                        </div>
+                        <p class="mb-0">
+                            <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://www.holzwerkerei67.de/kontakt/">holzwerkerei67.de</a>
+                        </p>
                     </div>
-                    <p class="mb-0">
-                        <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://www.holzwerkerei67.de/">www.holzwerkerei67.de</a>
-                    </p>
-                </div>
-                <!-- End Email and Website -->
-            </address>
+                    <!-- End Email and Website -->
+                </address>
+            </div>
+            <!-- End Footer Content -->
         </div>
-        <!-- End Footer Content -->
     </div>
 </div>
+
+<footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+    {% include './common/footer_copyright.html.twig' %}
+</footer>

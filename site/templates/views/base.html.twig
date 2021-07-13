@@ -25,18 +25,11 @@
             </header>
             {% block content %}{% endblock %}
             <!-- Footer -->
-            <div id="contacts-section" class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
-                {% include './common/footer.html.twig' %}
-            </div>
+            {% include './common/footer.html.twig' %}
             <!-- End Footer -->
-            <!-- Copyright Footer -->
-            <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
-                {% include './common/footer_copyright.html.twig' %}
-            </footer>
-            <!-- End Copyright Footer -->
-
             <!-- scripts --->
             {% include './common/scripts.html.twig' %}
+            <!-- End Script -->
         </main>
     </body>
 </html>
